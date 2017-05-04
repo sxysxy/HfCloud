@@ -35,6 +35,10 @@ public:
 
     void manage(Sprite *sp); /**<let the module manage sp.*/
 
+    int x(){return rect.x;}
+    int y(){return rect.y;}
+    int width(){return rect.w;}
+    int height(){return rect.h;}
 };
 
 HFCLOUD_END

@@ -12,10 +12,8 @@ Scene::~Scene(){
     delete main_module;
 }
 
-inline
 void Scene::start_scene(){
 }
-inline
 void Scene::end_scene(){
 }
 

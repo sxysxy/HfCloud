@@ -13,5 +13,6 @@ void Module::update(){
 }
 void Module::manage(Sprite *sp){
     sprites.push_back(sp);
+    sp->manager = this;
     _sp_ordered = false;
 }
