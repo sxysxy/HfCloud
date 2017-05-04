@@ -8,6 +8,7 @@ inline Sprite::Sprite(){
     _disposed = false;
     manager = NULL;
     bitmap = NULL;
+    opacity = 255;
 }
 Sprite::Sprite(const std::string &fn):Sprite(){
     bitmap = new Bitmap(fn.c_str());
@@ -61,4 +62,5 @@ inline void Sprite::setpos(int x, int y, int z){
 void Sprite::sync_texture(){
     SDL_DestroyTexture(texture);
     texture = SDL_CreateTextureFromSurface(Graphics::render, bitmap->surface);
+    SDL_SetTextureAlphaMod(texture, opacity);
 }

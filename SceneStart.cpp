@@ -2,14 +2,22 @@
 #include "SceneStart.h"
 using namespace HfCloud;
 //This is always the first scene
+
+#include "windows.h"
 struct{
     Bitmap *bmp;
     Sprite *sprite;
+    int cnt;
+    long long last;
+    long long now;
+    long long freq;
+    char buf[233];
 }data;
-
 void SceneStart::start_scene(){
     data.bmp = new Bitmap(Graphics::width, Graphics::height);
     data.sprite = new Sprite(data.bmp);
+    QueryPerformanceFrequency((LARGE_INTEGER*)&data.freq);
+    QueryPerformanceCounter((LARGE_INTEGER*)&data.last);
 }
 void SceneStart::end_scene(){
     if(data.bmp){
@@ -32,4 +40,13 @@ void SceneStart::update(){
     data.sprite->update();
 
     if(Input::key_is_triggled(SDLK_ESCAPE))SceneManager::exit(); //press esc to quit
+
+    if(++data.cnt == 60){
+        data.cnt = 0;
+        QueryPerformanceCounter((LARGE_INTEGER*)&data.now);
+        double c = 1.0*(data.now-data.last)/data.freq;
+        sprintf(data.buf, "HfCloud  -FPS : %.2lf", 60/c);
+        Graphics::set_title(data.buf);
+        QueryPerformanceCounter((LARGE_INTEGER*)&data.last);
+    }
 }

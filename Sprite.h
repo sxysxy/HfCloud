@@ -15,6 +15,7 @@ public:
     SDL_Rect show_rect;     /**< show on the screen in this rect. */
     SDL_Rect clip_rect;     /**< clip it in this rect. */
     Module *manager;        /**< managing module of this sprite, It's OK to be NULL. */
+    unsigned char opacity;  /**< opacity value. */
 
     Sprite();
     virtual ~Sprite(){}     /**< useless, just let the g++ complier not to throw me warning.(delete polymorphic object)

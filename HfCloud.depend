@@ -457,7 +457,7 @@
 1493903279 f:\test\hfcloud\input.h
 	"stdinc.h"
 
-1493903847 source:f:\test\hfcloud\main.cpp
+1493918394 source:f:\test\hfcloud\main.cpp
 	"stdinc.h"
 	"SceneManager.h"
 	"Graphics.h"
@@ -476,7 +476,7 @@
 	"Sprite.h"
 	"Graphics.h"
 
-1493913484 f:\test\hfcloud\sprite.h
+1493917588 f:\test\hfcloud\sprite.h
 	"stdinc.h"
 	"ParamZ.h"
 	"Bitmap.h"
@@ -502,7 +502,7 @@
 	"SceneManager.h"
 	"SceneStart.h"
 
-1493914569 source:f:\test\hfcloud\sprite.cpp
+1493917656 source:f:\test\hfcloud\sprite.cpp
 	"stdinc.h"
 	"Sprite.h"
 	"Graphics.h"
@@ -511,9 +511,10 @@
 1493467815 source:f:\test\hfcloud\stdinc.cpp
 	"stdinc.h"
 
-1493915893 source:f:\test\hfcloud\scenestart.cpp
+1493919429 source:f:\test\hfcloud\scenestart.cpp
 	"HfCloud.h"
 	"SceneStart.h"
+	"windows.h"
 
 1493903109 f:\test\hfcloud\hfcloud.h
 	"stdinc.h"
