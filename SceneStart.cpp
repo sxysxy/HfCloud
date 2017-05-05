@@ -4,8 +4,8 @@
 using namespace HfCloud;
 //This is always the first scene
 struct{
-    Bitmap *bmp;
-    Sprite *sprite;
+    Bitmap *bmp1, *bmp2;
+    Sprite *sp1, *sp2;
     int cnt;
     long long last;
     long long now;
@@ -14,25 +14,23 @@ struct{
     SDL_Texture *tex;
 }data;
 void SceneStart::start_scene(){
-    data.bmp = new Bitmap(100, 100);
-    data.bmp->fill_rect(0, 0, 100, 100, RGBA(255, 255, 0, 255));
-    data.sprite = new Sprite(data.bmp);
-    data.sprite->setpos(100, 300);
-    main_module->manage(data.sprite);
-
+    data.bmp1 = new Bitmap(100, 100);
+    data.bmp1->fill_rect(0, 0, 50, 50, RGBA(255, 255, 0, 255));
+    data.bmp1->fill_rect(50, 50, 50, 50, RGBA(0, 255, 0, 255));
+    data.sp1 = new Sprite(data.bmp1);
+    data.sp1->setpos(100, 300);
+    main_module->manage(data.sp1);
+    data.bmp2 = new Bitmap(100, 100);
+    data.bmp2->fill_rect(0, 0, 100, 100, RGBA(0, 255, 255, 255));
+    data.sp2 = new Sprite(data.bmp2);
+    data.sp2->setpos(300, 100);
+    main_module->manage(data.sp2);
 
     data.freq = SDL_GetPerformanceFrequency();
     data.last = SDL_GetPerformanceCounter();
 }
 void SceneStart::end_scene(){
-    if(data.bmp){
-        data.bmp->dispose();
-        data.bmp = NULL;
-    }
-    if(data.sprite){
-        data.sprite->dispose();
-        data.sprite = NULL;
-    }
+
 }
 void SceneStart::update(){
     Scene::update();
