@@ -7,6 +7,14 @@ It can run on windows, linux(tested), maybe mac, android, ios...etc.
 # Easy
 very easy...
 
+# Features
+## Fast
+Renders using D3D/Opengl, using hardware accelerating.
+## Light
+Do not depend on too much things.
+## Portable
+Still protable...
+
 # How to start:
 ## on windows:
 codeblocks/visual studio+SDL2+etc..
