@@ -24,7 +24,7 @@ struct Color{
         #endif
         unsigned int color;
     };
-    Color(const unsigned c){color = c;}
+    Color(const unsigned c = 0){color = c;}
 };
 inline unsigned RGBA(unsigned r, unsigned g, unsigned b, unsigned a){
     #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -34,8 +34,11 @@ inline unsigned RGBA(unsigned r, unsigned g, unsigned b, unsigned a){
     #endif
 }
 class Bitmap{
+    int _w;     /**< width, private, only provide reading interface */
+    int _h;     /**< height, private, only provide reading interface */
 public:
-    SDL_Surface *surface;       /**<SDL_Surface Object of this Bitmap object */
+    SDL_Texture *texture;       /**<SDL_Texture Object of this Bitmap object */
+    HfCloud::Color color;       /**<Current Color. */
     Bitmap(int w, int h);       /**<Create a bitmap of (width:w, height:h). RGBA Model.  */
     Bitmap(const std::string &fn);   /**<Create a bitmap from a picture file. */
     ~Bitmap(){}                      /**<useless, as for Bitmap, DO NOT FREE SOURCES IN DESTRUCTOR.
@@ -44,7 +47,8 @@ public:
 
     int width();            /**<get the width of the bitmap*/
     int height();           /**<get the height of the bitmap*/
-    void fill_rect(Hf_Rect &rect, HfCloud::Color color); /**<render a rect*/
+    void fill_rect(Hf_Rect &rect, HfCloud::Color color); /**<render a rect. */
+    void fill_rect(int x, int y, int w, int h, HfCloud::Color color); /**<render a rect. */
     void fill_rects(Hf_Rect *rects, HfCloud::Color color, int cnt);  /**<render some rects. */
     void set_pixel(int x, int y, HfCloud::Color color);  /**<render a point; */
     void set_pixels(Hf_Point *ps, HfCloud::Color color, int cnt);    /**<redner some points. */

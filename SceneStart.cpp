@@ -1,5 +1,6 @@
 #include "HfCloud.h"
 #include "SceneStart.h"
+
 using namespace HfCloud;
 //This is always the first scene
 
@@ -12,35 +13,36 @@ struct{
     long long now;
     long long freq;
     char buf[233];
+    SDL_Texture *tex;
 }data;
 void SceneStart::start_scene(){
-    data.bmp = new Bitmap(Graphics::width, Graphics::height);
+    data.bmp = new Bitmap(100, 100);
+    data.bmp->fill_rect(0, 0, 100, 100, RGBA(255, 255, 0, 255));
     data.sprite = new Sprite(data.bmp);
+    //main_module->manage(data.sprite);
+
     QueryPerformanceFrequency((LARGE_INTEGER*)&data.freq);
     QueryPerformanceCounter((LARGE_INTEGER*)&data.last);
+
+    data.tex = SDL_CreateTexture(Graphics::render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 200, 200);
+                                                                                        //创建一个200x200的texture
 }
 void SceneStart::end_scene(){
-    if(data.bmp){
-        data.bmp->dispose();
-        data.bmp = NULL;
-    }
+
 }
 void SceneStart::update(){
     Scene::update();
 
-    data.bmp->clear();
-    Hf_Rect rt = (Hf_Rect){0, 0, 100, 100};
-    data.bmp->fill_rect(rt, RGBA(255, 0, 0, 255));
-    rt = (Hf_Rect){100, 100, 100, 100};
-    data.bmp->fill_rect(rt, RGBA(0, 255, 0, 255));
-    rt = (Hf_Rect){200, 200, 100, 100};
-    data.bmp->fill_rect(rt, RGBA(0, 0, 255, 255));
+    Hf_Rect rts = (Hf_Rect){0, 0, 100, 100}; //要绘制的矩形x,y,w,h
+    Hf_Rect rtd = (Hf_Rect){0, 0, 100, 100}; //目标位置
+    SDL_SetRenderTarget(Graphics::render, data.tex);
+    SDL_SetRenderDrawColor(Graphics::render, 255, 255, 0, 255);
+    SDL_RenderFillRect(Graphics::render, &rts);
+    SDL_SetRenderTarget(Graphics::render, NULL);  //恢复到窗口texture
+    SDL_RenderCopy(Graphics::render, data.tex, &rts, &rtd);
 
-    data.sprite->sync_texture();
-    data.sprite->update();
 
     if(Input::key_is_triggled(SDLK_ESCAPE))SceneManager::exit(); //press esc to quit
-
     if(++data.cnt == 60){
         data.cnt = 0;
         QueryPerformanceCounter((LARGE_INTEGER*)&data.now);

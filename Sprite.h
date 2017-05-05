@@ -11,7 +11,6 @@ class Sprite : public ParamZ{  //Sprite
     bool _disposed;         /**< disposed flag. */
 public:
     Bitmap *bitmap;         /**< the bitmap, you can edit it, then sync_texture */
-    SDL_Texture *texture;   /**< the texture. IMPORTANT: the image is rendered through the texture at last. */
     SDL_Rect show_rect;     /**< show on the screen in this rect. */
     SDL_Rect clip_rect;     /**< clip it in this rect. */
     Module *manager;        /**< managing module of this sprite, It's OK to be NULL. */
@@ -24,12 +23,9 @@ public:
 
     Sprite(const std::string &fn);  /**< construct a Sprite from a file and initialize. */
     Sprite(const std::string &fn, int x, int y, int z);
-    Sprite(SDL_Texture *tex);       /**< construct it from a texture. */
-    Sprite(SDL_Texture *tex, int x, int y, int z);
     Sprite(Bitmap *bmp);    /**< construct a Sprite from a Bitmap*/
     void dispose();         /**< release the sources, then it can not be rendered. */
     void calc_rects();      /**< re_calc the rects */
-    void sync_texture();    /**< sync texture with bitmap. */
 
     virtual void update();          /**< update it to show. */
 
