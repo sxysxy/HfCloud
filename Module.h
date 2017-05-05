@@ -39,6 +39,8 @@ public:
     int y(){return rect.y;}
     int width(){return rect.w;}
     int height(){return rect.h;}
+    
+    void not_ordered(){_sp_ordered = false;}
 };
 
 HFCLOUD_END
