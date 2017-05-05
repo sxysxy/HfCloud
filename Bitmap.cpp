@@ -4,9 +4,9 @@ using namespace HfCloud;
 
 Bitmap::Bitmap(int w, int h){
     #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-    texture = SDL_CreateTexture(Graphics::render, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_TARGET, Graphics::width, Graphics::height);
+    texture = SDL_CreateTexture(Graphics::render, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_TARGET, w, h);
     #else
-    texture = SDL_CreateTexture(Graphics::render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, Graphics::width, Graphics::height);
+    texture = SDL_CreateTexture(Graphics::render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, w, h);
     #endif
     _w = w, _h = h;
 }
@@ -27,17 +27,20 @@ int Bitmap::height(){
 #define _SET_TARGET SDL_SetRenderTarget(Graphics::render, texture);
 #define _SET_COLOR SDL_SetRenderDrawColor(Graphics::render, color.rgba.r, color.rgba.g, color.rgba.b, color.rgba.a);
 #define _RESET_TARGET SDL_SetRenderTarget(Graphics::render, NULL);
+#define _RESET_COLOR SDL_SetRenderDrawColor(Graphics::render, 0, 0, 0, 0);
 void Bitmap::set_pixel(int x, int y, HfCloud::Color color){
     _SET_TARGET
     _SET_COLOR
     SDL_RenderDrawPoint(Graphics::render, x, y);
     _RESET_TARGET
+    _RESET_COLOR
 }
 void Bitmap::fill_rect(Hf_Rect &rect, HfCloud::Color color){
     _SET_TARGET
     _SET_COLOR
     SDL_RenderFillRect(Graphics::render, &rect);
     _RESET_TARGET
+    _RESET_COLOR
 }
 void Bitmap::fill_rect(int x, int y, int w, int h, HfCloud::Color color){
     //Hf_Rect rect = (Hf_Rect){x, y, w, h};   //ISO C++ forbids.
@@ -49,18 +52,21 @@ void Bitmap::fill_rects(Hf_Rect *rs, HfCloud::Color color, int cnt){
     _SET_COLOR
     SDL_RenderFillRects(Graphics::render, rs, cnt);
     _RESET_TARGET
+    _RESET_COLOR
 }
 void Bitmap::set_pixels(Hf_Point *ps, HfCloud::Color color, int cnt){
     _SET_TARGET
     _SET_COLOR
     SDL_RenderDrawPoints(Graphics::render, ps, cnt);
     _RESET_TARGET
+    _RESET_COLOR
 }
 void Bitmap::clear(){
     _SET_TARGET
     _SET_COLOR
     SDL_SetRenderTarget(Graphics::render, texture);
     _RESET_TARGET
+    _RESET_COLOR
 }
 
 #undef _SET_TARGET

@@ -4,7 +4,7 @@
 #include "Module.h"
 using namespace HfCloud;
 
-inline Sprite::Sprite(){
+Sprite::Sprite(){
     _disposed = false;
     manager = NULL;
     bitmap = NULL;
@@ -24,9 +24,9 @@ Sprite::Sprite(Bitmap *bmp):Sprite(){
 void Sprite::dispose(){
     _disposed = true;
 }
-inline void Sprite::update(){
+void Sprite::update(){
     if(_disposed)return;
-    SDL_RenderCopy(Graphics::render, bitmap->texture, NULL, NULL);
+    SDL_RenderCopy(Graphics::render, bitmap->texture, &clip_rect, &show_rect);
 }
 void Sprite::calc_rects(){
     show_rect.x = manager?manager->x():0;
@@ -35,9 +35,9 @@ void Sprite::calc_rects(){
     show_rect.w = bitmap->width(); show_rect.h = bitmap->height();
     clip_rect.w = show_rect.w, clip_rect.h = show_rect.h;
 }
-inline void Sprite::setpos(int x, int y){
+void Sprite::setpos(int x, int y){
     show_rect.x = x, show_rect.y = y;
 }
-inline void Sprite::setpos(int x, int y, int z){
+void Sprite::setpos(int x, int y, int z){
     setpos(x, y); setz(z);
 }

@@ -24,7 +24,8 @@ public:
     Sprite(const std::string &fn);  /**< construct a Sprite from a file and initialize. */
     Sprite(const std::string &fn, int x, int y, int z);
     Sprite(Bitmap *bmp);    /**< construct a Sprite from a Bitmap*/
-    void dispose();         /**< release the sources, then it can not be rendered. */
+    void dispose();         /**< release the sources, then it can not be rendered.
+                                NOTICE: it does not release bitmap it refrences. */
     void calc_rects();      /**< re_calc the rects */
 
     virtual void update();          /**< update it to show. */
