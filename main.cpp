@@ -1,8 +1,7 @@
 #include "stdinc.h"
 #include "SceneManager.h"
 #include "Graphics.h"
-//Main win32
-#include <windows.h>
+
 using namespace HfCloud;
 const int WINDOW_WIDTH = 544; /**<The width of the game window*/
 const int WINDOW_HEIGHT = 416; /**<The height of the game window*/
@@ -17,7 +16,7 @@ void ApplyConfig(Info &info){
     char buf[256];
     FILE *f = fopen("HfCloud.ini", "r");
     if(!f){
-        MessageBox(0, "Can not find the config file HfCloud.ini", "Error", 0);
+        printf("Error: Can not find the config file HfCloud.ini\n");
         exit(0);
     }
     while(fgets(buf, 256, f)){
@@ -35,8 +34,7 @@ int main(int argc, char *argv[]){
     ApplyConfig(info);
 
     SDL_Init(SDL_INIT_VIDEO);
-    info.window = SDL_CreateWindow(info.title, GetSystemMetrics(SM_CXSCREEN)/2-WINDOW_WIDTH/2,
-                                    GetSystemMetrics(SM_CYSCREEN)/2-WINDOW_HEIGHT/2,
+    info.window = SDL_CreateWindow(info.title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                     WINDOW_WIDTH, WINDOW_HEIGHT,
                                     SDL_WINDOW_SHOWN);
     info.render = SDL_CreateRenderer(info.window , -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
