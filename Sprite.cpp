@@ -41,3 +41,6 @@ void Sprite::setpos(int x, int y){
 void Sprite::setpos(int x, int y, int z){
     setpos(x, y); setz(z);
 }
+void Sprite::setz(int z){
+  ParamZ::setz(z); if(manager)manager->not_ordered();
+}
