@@ -17,7 +17,7 @@ public:
 
     static void resize(int w, int h);  /**<resize the window of a new (w, h)*/
     static void move_to(int x, int y); /**<move the window to (x, y)*/
-    static void update();  /**<Graphics::update, very important but online has one line of code.*/
+    static void update();  /**<Graphics::update, very important but only has one line of code.*/
     static void clear();   /**<clear the Graphics*/
     static void set_title(const std::string &t);  /**<set the title of the window. */
 };
