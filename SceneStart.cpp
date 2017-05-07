@@ -16,6 +16,9 @@ struct{
     long long last;
     long long now;
     long long freq;
+
+    long long lsec;
+    long long csec;
     char buf[233];
     SDL_Texture *tex;
 }data;
@@ -39,6 +42,7 @@ void SceneStart::start_scene(){
 
     data.freq = SDL_GetPerformanceFrequency();
     data.last = SDL_GetPerformanceCounter();
+    data.lsec = SDL_GetPerformanceCounter();
 }
 void SceneStart::end_scene(){
     for(int i = 0; i < 40; i++){
@@ -63,6 +67,7 @@ void SceneStart::update(){
     Scene::update();
     update_fiber();
     if(Input::key_is_triggled(SDLK_ESCAPE))SceneManager::exit(); //press esc to quit
+
     if(++data.cnt == 60){
         data.cnt = 0;
         data.now = SDL_GetPerformanceCounter();
