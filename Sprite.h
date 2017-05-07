@@ -32,6 +32,7 @@ public:
 
     void setpos(int x, int y);               /**< set the position of (x, y), do not affect z. */
     void setpos(int x, int y, int z);        /**< set the position of (x, y, z). */
+    void setz(int z);
     inline int x(){return show_rect.x;}            /**< get x */
     inline int y(){return show_rect.y;}            /**< get y */
     inline int width(){return show_rect.w;}        /**< get width */

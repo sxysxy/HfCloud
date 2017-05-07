@@ -27,34 +27,3 @@ void Graphics::update(){
 void Graphics::clear(){
     SDL_RenderClear(Graphics::render);
 }
-void Graphics::set_render_color(HfCloud::Color color){
-    SDL_SetRenderDrawColor(Graphics::render, color.rgba.r, color.rgba.g, color.rgba.b, color.rgba.a);
-}
-void Graphics::fill_rect(Hf_Rect &rect){
-    SDL_RenderDrawRect(Graphics::render, &rect);
-}
-void Graphics::fill_rect(Hf_Rect &rect, HfCloud::Color color){
-    set_render_color(color);
-    fill_rect(rect);
-}
-void Graphics::draw_line(int x1, int y1, int x2, int y2){
-    SDL_RenderDrawLine(Graphics::render, x1, y1, x2, y2);
-}
-void Graphics::draw_line(int x1, int y1, int x2, int y2, HfCloud::Color color){
-    set_render_color(color);
-    draw_line(x1, y1, x2, y2);
-}
-void Graphics::set_pixel(int x, int y){
-    SDL_RenderDrawPoint(Graphics::render, x, y);
-}
-void Graphics::set_pixel(int x, int y, HfCloud::Color color){
-    set_render_color(color);
-    set_pixel(x, y);
-}
-void Graphics::set_pixels(Hf_Point *ps, int cnt){
-    SDL_RenderDrawPoints(Graphics::render, ps, cnt);
-}
-void Graphics::fill_rects(Hf_Rect *rs, int cnt){
-    SDL_RenderDrawRects(Graphics::render, rs, cnt);
-}
-
