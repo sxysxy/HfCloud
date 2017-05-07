@@ -15,6 +15,9 @@ Do not depend on too much things.
 ## Portable
 Still protable...
 
+## Construction:
+![](https://github.com/sxysxy/HfCloud/raw/test/construction.png)
+
 # How to start:
 ## on windows:
 codeblocks/visual studio+SDL2+etc..
@@ -30,4 +33,7 @@ install sdl-sdk(SDL2), codeblocks, config codeblocks global variables(SDL includ
 
 # Support 
 qq group : 142761185
+
 Documents being writting....
+
+** ALL RIGHTS RESERVED **
