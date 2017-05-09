@@ -1,9 +1,10 @@
-/*
-  Thanks to JazzLeee https://github.com/JazzLeee
-  Fiber
-*/
-#ifndef _FIBER_H
-#define _FIBER_H
+/***************************
+	class Fiber (for win32)
+	author: Rio Shiina
+	E-mail: 390855044@qq.com
+****************************/
+
+#pragma once
 
 #include <Windows.h>
 
@@ -12,6 +13,7 @@
 #include <unordered_set>
 #include <memory>
 #include <stack>
+#include <mutex>
 
 enum class FiberStatus {
 
@@ -23,7 +25,7 @@ enum class FiberStatus {
 
 class Fiber {
 
-	struct FiberProcContext {
+	struct Context {
 
 		Fiber *self;
 
@@ -35,7 +37,7 @@ class Fiber {
 
 	inline static VOID WINAPI FiberProc(PVOID pvParam) {
 
-		FiberProcContext &context = *reinterpret_cast<FiberProcContext*>(pvParam);
+		Context &context = *reinterpret_cast<Context*>(pvParam);
 
 		if (context.functor)
 			context.functor();
@@ -46,7 +48,11 @@ class Fiber {
 
 	}
 
-	std::unordered_map<unsigned, FiberProcContext> _contexts;
+	static std::unordered_map<PVOID, Fiber*> _fibers;
+
+	static std::mutex mutex;
+
+	std::unordered_map<unsigned, Context> _contexts;
 
 	std::stack<PVOID> _handleStack;
 
@@ -58,9 +64,23 @@ public:
 
 	Fiber() {}
 
-	Fiber(const Fiber&) = delete;
+	Fiber(const Fiber &fiber) {
 
-	Fiber(Fiber&&) = delete;
+		for (auto &i : fiber._contexts)
+			_contexts.insert(std::make_pair(i.first, Context{ this, nullptr, i.second.functor }));
+
+	}
+
+	Fiber(Fiber &&fiber) {
+
+		for (auto &i : fiber._contexts) {
+
+			for (auto &i : fiber._contexts)
+				_contexts.insert(std::make_pair(i.first, Context{ this, nullptr, std::move(i.second.functor) }));
+
+		}
+
+	}
 
 	void resume(unsigned n) {
 
@@ -93,6 +113,12 @@ public:
 
 		_handle = it->second.proc;
 
+		mutex.lock();
+
+		_fibers.insert(std::make_pair(_handle, this));
+
+		mutex.unlock();
+
 		::SwitchToFiber(_handle);
 
 	}
@@ -112,7 +138,7 @@ public:
 		auto it = _contexts.find(n);
 
 		if (it == _contexts.end())
-			it = _contexts.insert(std::make_pair(n, FiberProcContext{ this, nullptr })).first;
+			it = _contexts.insert(std::make_pair(n, Context{ this, nullptr })).first;
 
 		if (it->second.proc)
 			throw std::runtime_error("Fiber proc is running.");
@@ -129,11 +155,19 @@ public:
 
 		for (auto &i : _contexts) {
 
-			if (i.second.proc) {
+			PVOID &handle = i.second.proc;
 
-				::DeleteFiber(i.second.proc);
+			if (handle) {
 
-				i.second.proc = nullptr;
+				mutex.lock();
+
+				_fibers.erase(handle);
+
+				::DeleteFiber(handle);
+
+				mutex.unlock();
+
+				handle = nullptr;
 
 			}
 
@@ -198,6 +232,21 @@ public:
 
 	}
 
-};
+	static Fiber &fiber() {
 
-#endif
+		PVOID handle = ::GetCurrentFiber();
+
+		mutex.lock();
+
+		auto it = _fibers.find(handle);
+
+		if (it == _fibers.end())
+			throw std::runtime_error("Fiber proc does not exist");
+
+		mutex.unlock();
+
+		return *it->second;
+
+	}
+
+};

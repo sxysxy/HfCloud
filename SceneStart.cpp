@@ -35,7 +35,7 @@ void SceneStart::start_scene(){
     fiber[1] = [&](){
         for(int i = 0; i < 40; i++){
             main_module->manage(data.sprite[i]);
-            for(int i = 0; i < 30; i++)fiber.yield();
+			for (int i = 0; i < 30; i++) Fiber::fiber().yield();
         }
     };
 }
@@ -49,8 +49,8 @@ void SceneStart::end_scene(){
 }
 void SceneStart::update(){
     Scene::update();
-    if(fiber.status(1) == FiberStatus::HungUp)
-        fiber.resume(1);
+	if (fiber.status(1) == FiberStatus::HungUp)
+		Fiber::fiber().resume(1);
     if(Input::key_is_triggled(SDLK_ESCAPE))SceneManager::exit(); //press esc to quit
     if(++data.cnt == 60){
         data.cnt = 0;
