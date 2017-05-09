@@ -1,7 +1,5 @@
 #include "Input.h"
 using namespace HfCloud;
-std::vector<KeyInfo> Input::keys;
-std::vector<ButtonInfo> Input::buttons;
 
 void Input::clear(){
     Input::keys.clear();

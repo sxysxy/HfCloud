@@ -67,6 +67,10 @@
 		</Linker>
 		<Unit filename="Bitmap.cpp" />
 		<Unit filename="Bitmap.h" />
+		<Unit filename="Fiber.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="Graphics.cpp" />
 		<Unit filename="Graphics.h" />
 		<Unit filename="HfCloud.h" />
