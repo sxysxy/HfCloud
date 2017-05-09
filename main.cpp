@@ -1,10 +1,7 @@
 #include "stdinc.h"
 #include "SceneManager.h"
 #include "Graphics.h"
-
-#ifdef __WINDOWS__
-#include "windows.h"
-#endif // __WINDOWS__
+#include "Fiber.h"
 
 using namespace HfCloud;
 const int WINDOW_WIDTH = 544; /**<The width of the game window*/
@@ -33,6 +30,7 @@ void ApplyConfig(Info &info){
         }
     }
 }
+Fiber fiber;
 int main(int argc, char *argv[]){
     Info info;
     ApplyConfig(info);
@@ -48,20 +46,14 @@ int main(int argc, char *argv[]){
     Graphics::width = WINDOW_WIDTH;
     Graphics::height = WINDOW_HEIGHT;
 
-    #ifdef __WINDOWS__
-    ConvertThreadToFiberEx(NULL, FIBER_FLAG_FLOAT_SWITCH);
-    #endif // __WINDOWS__
-
-    SceneManager::run(new SceneStart);
+    fiber[0] = [](){SceneManager::run(new SceneStart);};
+    fiber.run(0);
 
     if(Graphics::render)
         SDL_DestroyRenderer(Graphics::render);
     if(Graphics::window)
         SDL_DestroyWindow(Graphics::window);
 
-    #ifdef __WINDOWS__
-    ConvertFiberToThread();
-    #endif // __WINDOWS__
     IMG_Quit();
     SDL_Quit();
     return 0;
