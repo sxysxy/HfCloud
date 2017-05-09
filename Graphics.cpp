@@ -2,11 +2,6 @@
 #include "Bitmap.h"
 using namespace HfCloud;
 
-SDL_Window *Graphics::window;
-SDL_Renderer *Graphics::render;
-int Graphics::frame_count = 0;
-int Graphics::width, Graphics::height;
-
 void Graphics::resize(int w, int h){
     SDL_SetWindowSize(Graphics::window, w, h);
     Graphics::width = w, Graphics::height = h;

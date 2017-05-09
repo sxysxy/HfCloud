@@ -21,6 +21,8 @@ typedef SDL_Rect Hf_Rect;
 typedef SDL_Color Hf_Color;
 typedef SDL_Point Hf_Point;
 
+namespace HfCloud{}
+
 #define HFCLOUD_BEGIN namespace HfCloud{
 #define HFCLOUD_END }
 

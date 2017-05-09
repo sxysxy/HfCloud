@@ -14,6 +14,7 @@
 #include <memory>
 #include <stack>
 #include <mutex>
+namespace HfCloud{
 
 enum class FiberStatus {
 
@@ -250,3 +251,5 @@ public:
 	}
 
 };
+
+}
