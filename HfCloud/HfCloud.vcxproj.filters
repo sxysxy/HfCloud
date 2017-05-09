@@ -45,6 +45,9 @@
     <ClCompile Include="..\stdinc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\static.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Bitmap.h">
@@ -78,6 +81,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\stdinc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fiber.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

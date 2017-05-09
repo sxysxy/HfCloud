@@ -67,6 +67,10 @@
 		</Linker>
 		<Unit filename="Bitmap.cpp" />
 		<Unit filename="Bitmap.h" />
+		<Unit filename="Fiber.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="Graphics.cpp" />
 		<Unit filename="Graphics.h" />
 		<Unit filename="HfCloud.h" />
@@ -84,6 +88,7 @@
 		<Unit filename="Sprite.cpp" />
 		<Unit filename="Sprite.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="static.cpp" />
 		<Unit filename="stdinc.cpp" />
 		<Unit filename="stdinc.h" />
 		<Extensions>
