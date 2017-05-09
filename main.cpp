@@ -2,10 +2,6 @@
 #include "SceneManager.h"
 #include "Graphics.h"
 
-#ifdef __WINDOWS__
-#include "windows.h"
-#endif // __WINDOWS__
-
 using namespace HfCloud;
 const int WINDOW_WIDTH = 544; /**<The width of the game window*/
 const int WINDOW_HEIGHT = 416; /**<The height of the game window*/
@@ -48,10 +44,6 @@ int main(int argc, char *argv[]){
     Graphics::width = WINDOW_WIDTH;
     Graphics::height = WINDOW_HEIGHT;
 
-    #ifdef __WINDOWS__
-    ConvertThreadToFiberEx(NULL, FIBER_FLAG_FLOAT_SWITCH);
-    #endif // __WINDOWS__
-
     SceneManager::run(new SceneStart);
 
     if(Graphics::render)
@@ -59,9 +51,6 @@ int main(int argc, char *argv[]){
     if(Graphics::window)
         SDL_DestroyWindow(Graphics::window);
 
-    #ifdef __WINDOWS__
-    ConvertFiberToThread();
-    #endif // __WINDOWS__
     IMG_Quit();
     SDL_Quit();
     return 0;
