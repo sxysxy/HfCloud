@@ -49,7 +49,7 @@ void SceneStart::end_scene(){
 }
 void SceneStart::update(){
     Scene::update();
-	if (fiber.status(1) == FiberStatus::HungUp)
+	if (Fiber::fiber().isHungUp(1))
 		Fiber::fiber().resume(1);
     if(Input::key_is_triggled(SDLK_ESCAPE))SceneManager::exit(); //press esc to quit
     if(++data.cnt == 60){
