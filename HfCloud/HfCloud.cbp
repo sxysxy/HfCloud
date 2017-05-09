@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="HfCloud" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="HfCloud" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add directory="$(VC_IncludePath)" />
+					<Add directory="$(WindowsSDK_IncludePath)" />
+					<Add directory="$(SolutionDir)/../SDL2/include" />
+				</Compiler>
+				<Linker>
+					<Add directory="$(VC_LibraryPath_x86)" />
+					<Add directory="$(WindowsSDK_LibraryPath_x86)" />
+					<Add directory="$(NETFXKitsDir)Lib/um/x86" />
+					<Add directory="$(SolutionDir)/../SDL2/lib/x86" />
+				</Linker>
+			</Target>
+			<Target title="Debug x64">
+				<Option output="HfCloud" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WINDOWS" />
+				</Compiler>
+			</Target>
+			<Target title="Release x64">
+				<Option output="HfCloud" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DNDEBUG" />
+					<Add option="-D_WINDOWS" />
+				</Compiler>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="HfCloud" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add directory="$(VC_IncludePath)" />
+					<Add directory="$(WindowsSDK_IncludePath)" />
+					<Add directory="$(SolutionDir)/../SDL2/include" />
+				</Compiler>
+				<Linker>
+					<Add directory="$(VC_LibraryPath_x86)" />
+					<Add directory="$(WindowsSDK_LibraryPath_x86)" />
+					<Add directory="$(NETFXKitsDir)Lib/um/x86" />
+					<Add directory="$(SolutionDir)/../SDL2/lib/x86" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../Bitmap.cpp" />
+		<Unit filename="../Bitmap.h" />
+		<Unit filename="../Graphics.cpp" />
+		<Unit filename="../Graphics.h" />
+		<Unit filename="../HfCloud.h" />
+		<Unit filename="../Input.cpp" />
+		<Unit filename="../Input.h" />
+		<Unit filename="../Module.cpp" />
+		<Unit filename="../Module.h" />
+		<Unit filename="../ParamZ.h" />
+		<Unit filename="../Scene.cpp" />
+		<Unit filename="../Scene.h" />
+		<Unit filename="../SceneManager.cpp" />
+		<Unit filename="../SceneManager.h" />
+		<Unit filename="../SceneStart.cpp" />
+		<Unit filename="../SceneStart.h" />
+		<Unit filename="../Sprite.cpp" />
+		<Unit filename="../Sprite.h" />
+		<Unit filename="../main.cpp" />
+		<Unit filename="../stdinc.cpp" />
+		<Unit filename="../stdinc.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -16,7 +16,7 @@ Do not depend on too much things.
 Still protable...
 
 ## Construction:
-![](https://github.com/sxysxy/HfCloud/raw/test/construction.png)
+![](https://github.com/sxysxy/HfCloud/raw/develop/construction.png)
 
 # How to start:
 ## on windows:
@@ -29,11 +29,15 @@ Download development library from https://www.libsdl.org/download-2.0.php for VC
 ## on linux:
 codeblocks+SDL2+etc..
 #### codeblocks:
-install sdl-sdk(SDL2), codeblocks, config codeblocks global variables(SDL include and lib directory), then you can enjoy it.
+install sdl-sdk(SDL2), codeblocks, config codeblocks global variables(SDL include and lib directory), 
+
+then you can enjoy it.
 
 # Support 
-qq group : 142761185
+qq group : 142761185. Contact us to join.
+
+email: sxysxygm@gmail.com(sxysxy), 1441157749@qq.com(sxysxy)
 
 Documents being writting....
 
-** ALL RIGHTS RESERVED **
+OpenSource but now ** ALL RIGHTS RESERVED **.
