@@ -88,6 +88,7 @@
 		<Unit filename="Sprite.cpp" />
 		<Unit filename="Sprite.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="static.cpp" />
 		<Unit filename="stdinc.cpp" />
 		<Unit filename="stdinc.h" />
 		<Extensions>
