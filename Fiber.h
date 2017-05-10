@@ -25,7 +25,6 @@ using ProcHandle = ucontext_t*;
 #include <unordered_set>
 #include <memory>
 #include <stack>
-#include <mutex>
 
 enum class FiberStatus {
 
@@ -157,9 +156,7 @@ class Fiber {
 
 	}
 
-	static std::unordered_map<ProcHandle, Fiber*> _fibers;
-
-	static std::mutex mutex;
+	static thread_local std::unordered_map<ProcHandle, Fiber*> _fibers;
 
 	std::unordered_map<unsigned, Context> _contexts;
 
@@ -208,11 +205,7 @@ public:
 
 		_handle = it->second.proc;
 
-		mutex.lock();
-
 		_fibers.insert(std::make_pair(_handle, this));
-
-		mutex.unlock();
 
 		SwitchToFiber(_handle);
 
@@ -264,13 +257,7 @@ public:
 
 				if (handle) {
 
-					mutex.lock();
-
-					_fibers.erase(handle);
-
 					DeleteFiber(handle);
-
-					mutex.unlock();
 
 					handle = nullptr;
 
@@ -279,6 +266,8 @@ public:
 			}
 
 			_dead.clear();
+
+			_fibers.clear();
 
 #ifdef _WIN32
 
@@ -345,14 +334,10 @@ public:
 
 		ProcHandle handle = GetFiber();
 
-		mutex.lock();
-
 		auto it = _fibers.find(handle);
 
 		if (it == _fibers.end())
 			throw std::runtime_error("Fiber proc does not exist");
-
-		mutex.unlock();
 
 		return *it->second;
 

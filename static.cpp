@@ -4,9 +4,7 @@ using namespace HfCloud;
 //Fiber
 #include "Fiber.h"
 
-std::unordered_map<ProcHandle, Fiber*> Fiber::_fibers;
-
-std::mutex Fiber::mutex;
+thread_local std::unordered_map<ProcHandle, Fiber*> Fiber::_fibers;
 
 #ifdef __linux__
 
