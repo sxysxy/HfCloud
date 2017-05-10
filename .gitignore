@@ -5,3 +5,4 @@ HfCloud.layout
 /.vs
 /Debug
 /Release
+/obj
