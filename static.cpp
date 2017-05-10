@@ -18,6 +18,7 @@ SDL_Window *Graphics::window;
 SDL_Renderer *Graphics::render;
 int Graphics::frame_count = 0;
 int Graphics::width, Graphics::height;
+int Graphics::vsync;
 
 //input
 #include "Input.h"
