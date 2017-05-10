@@ -35,10 +35,13 @@ void Graphics::clear(){
     SDL_RenderClear(Graphics::render);
 }
 void Graphics::check_vsync(){
-   const char *hint = NULL;
-   hint = SDL_GetHint(SDL_HINT_RENDER_VSYNC);
-   if(hint){
-       if(*hint == '0')Graphics::vsync = 0;
-       else Graphics::vsync = 1;
-   }
+    #ifdef SDL_VIDEO_RENDER_D3D
+    Graphics::vsync = 1;
+    #elif defined(SDL_VIDEO_RENDER_D3D11)
+    Graphics::vsync = 1;
+    #elif defined(SDL_VIDEO_RENDER_OGL)
+    SDL_GL_SetSwapInterval(1);
+    if(SDL_GL_GetSwapInterval() > 0)
+        Graphics::vsync = 1;
+    #endif // defined
 }
