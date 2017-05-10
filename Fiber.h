@@ -258,12 +258,6 @@ public:
 
 		resume(n);
 
-#ifdef __linux__
-
-		End :
-
-#endif
-
 			for (auto &i : _contexts) {
 
 				ProcHandle &handle = i.second.proc;
