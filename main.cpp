@@ -45,6 +45,7 @@ int main(int argc, char *argv[]){
     Graphics::render = info.render;
     Graphics::width = WINDOW_WIDTH;
     Graphics::height = WINDOW_HEIGHT;
+    Graphics::check_vsync();
 
     fiber[0] = [](){SceneManager::run(new SceneStart);};
     fiber.run(0);
