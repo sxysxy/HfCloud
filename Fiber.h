@@ -1,5 +1,5 @@
 /***************************
-	class Fiber (for win32)
+	class Fiber
 	author: Rio Shiina
 	E-mail: 390855044@qq.com
 ****************************/
