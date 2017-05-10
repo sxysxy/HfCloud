@@ -1,5 +1,5 @@
-#include "SceneManager.h"
-#include "SceneStart.h"
+#include "include/SceneManager.h"
+#include "include/SceneStart.h"
 using namespace HfCloud;
 
 //defines SceneManage's static members here. DO NOT DEFINE IT IN HEADER FILES.
