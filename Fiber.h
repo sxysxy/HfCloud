@@ -48,7 +48,7 @@ class Fiber {
 
 		ucontext_t ucontext;
 
-		char stack[0x400];
+		char stack[0x100000];
 
 #endif
 
@@ -106,7 +106,7 @@ class Fiber {
 
 		handle->uc_stack.ss_sp = context->stack;
 
-		handle->uc_stack.ss_size = 0x400;
+		handle->uc_stack.ss_size = 0x100000;
 
 		::makecontext(handle, (void(*)())FiberProc, 1, context);
 
