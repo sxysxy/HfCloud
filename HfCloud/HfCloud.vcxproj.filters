@@ -50,40 +50,40 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Bitmap.h">
+    <ClInclude Include="..\include\Bitmap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Graphics.h">
+    <ClInclude Include="..\include\Fiber.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\HfCloud.h">
+    <ClInclude Include="..\include\Graphics.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Input.h">
+    <ClInclude Include="..\include\HfCloud.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Module.h">
+    <ClInclude Include="..\include\Input.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\ParamZ.h">
+    <ClInclude Include="..\include\Module.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Scene.h">
+    <ClInclude Include="..\include\ParamZ.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\SceneManager.h">
+    <ClInclude Include="..\include\Scene.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\SceneStart.h">
+    <ClInclude Include="..\include\SceneManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sprite.h">
+    <ClInclude Include="..\include\SceneStart.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\stdinc.h">
+    <ClInclude Include="..\include\Sprite.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Fiber.h">
+    <ClInclude Include="..\include\stdinc.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

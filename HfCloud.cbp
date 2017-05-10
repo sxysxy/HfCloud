@@ -53,6 +53,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="$(#sdl2.include)/SDL2" />
+			<Add directory="./include" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />

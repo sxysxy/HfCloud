@@ -1,22 +1,26 @@
 
-#include "include/stdinc.h"
+#include "stdinc.h"
 using namespace HfCloud;
 //Fiber
-#include "include/Fiber.h"
+#include "Fiber.h"
 std::unordered_map<PVOID, Fiber*> Fiber::_fibers;
 std::mutex Fiber::mutex;
 
 //Graphics
-#include "include/Graphics.h"
+#include "Graphics.h"
 SDL_Window *Graphics::window;
 SDL_Renderer *Graphics::render;
 int Graphics::frame_count = 0;
 int Graphics::width, Graphics::height;
 
 //input
-#include "include/Input.h"
+#include "Input.h"
 std::vector<KeyInfo> Input::keys;
 std::vector<ButtonInfo> Input::buttons;
 
-//
+//SceneManager
+#include "SceneManager.h"
+Scene *SceneManager::scene;
+std::vector<Scene *> SceneManager::scenes;
+std::vector<Scene *> del_scenes;
 

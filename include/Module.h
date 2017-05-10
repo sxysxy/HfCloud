@@ -8,8 +8,8 @@
 HFCLOUD_BEGIN
 
 class Module{
-    bool _sp_ordered;           //oerderd flag
-    void _sp_sort();            //sort the sprites.
+    bool _sp_ordered;               //oerderd flag
+    void _sp_sort();                //sort the sprites.
 public:
     Hf_Rect rect;                              /**<the rect shows the area it lays on*/
     std::vector<Sprite *> sprites;             /**<sprites*/
@@ -35,12 +35,15 @@ public:
 
     void manage(Sprite *sp); /**<let the module manage sp.*/
 
-    int x(){return rect.x;}
-    int y(){return rect.y;}
-    int width(){return rect.w;}
-    int height(){return rect.h;}
-    
-    void not_ordered(){_sp_ordered = false;}
+    inline int x(){return rect.x;}
+    inline int y(){return rect.y;}
+    inline int width(){return rect.w;}
+    inline int height(){return rect.h;}
+    inline void resize(int w, int h){rect.w = w, rect.h = h;}
+    inline void setpos(int x, int y){rect.x = x, rect.y = y;}
+
+    inline void not_ordered(){_sp_ordered = false;}
+
 };
 
 HFCLOUD_END

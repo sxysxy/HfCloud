@@ -1,4 +1,4 @@
-#include "include/stdinc.h"
+#include "stdinc.h"
 
 #ifdef _MSC_VER
 
