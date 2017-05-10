@@ -3,10 +3,12 @@
 using namespace HfCloud;
 
 //defines SceneManage's static members here. DO NOT DEFINE IT IN HEADER FILES.
-Scene *SceneManager::scene;
-std::vector<Scene *> SceneManager::scenes;
+/*
+extern Scene *SceneManager::scene;
+extern std::vector<Scene *> SceneManager::scenes;
+*/
 
-std::vector<Scene *> del_scenes;  //when a scene is deleted, it will be pushed in it.
+extern std::vector<Scene *> del_scenes;  //when a scene is deleted, it will be pushed in it.
                         //You must want to ask me why don't delete it directly?
                         //I do not know why it will causs segment fault if I delete it directly.
 

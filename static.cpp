@@ -18,5 +18,9 @@ int Graphics::width, Graphics::height;
 std::vector<KeyInfo> Input::keys;
 std::vector<ButtonInfo> Input::buttons;
 
-//
+//SceneManager
+#include "SceneManager.h"
+Scene *SceneManager::scene;
+std::vector<Scene *> SceneManager::scenes;
+std::vector<Scene *> del_scenes;
 
