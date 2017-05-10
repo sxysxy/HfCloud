@@ -1,6 +1,7 @@
 *.swp
 HfCloud.depend
 HfCloud.layout
-Debug/*.*
 /SDL2
 /.vs
+/Debug
+/Release
