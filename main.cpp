@@ -1,7 +1,7 @@
-#include "include/stdinc.h"
-#include "include/SceneManager.h"
-#include "include/Graphics.h"
-#include "include/Fiber.h"
+#include "stdinc.h"
+#include "SceneManager.h"
+#include "Graphics.h"
+#include "Fiber.h"
 
 using namespace HfCloud;
 const int WINDOW_WIDTH = 544; /**<The width of the game window*/
@@ -45,6 +45,7 @@ int main(int argc, char *argv[]){
     Graphics::render = info.render;
     Graphics::width = WINDOW_WIDTH;
     Graphics::height = WINDOW_HEIGHT;
+    Graphics::check_vsync();
 
     fiber[0] = [](){SceneManager::run(new SceneStart);};
     fiber.run(0);

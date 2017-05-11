@@ -1,8 +1,8 @@
-#include "include/Scene.h"
-#include "include/SceneManager.h"
-#include "include/Graphics.h"
-#include "include/Input.h"
-#include "include/Module.h"
+#include "Scene.h"
+#include "SceneManager.h"
+#include "Graphics.h"
+#include "Input.h"
+#include "Module.h"
 using namespace HfCloud;
 
 Scene::Scene(){

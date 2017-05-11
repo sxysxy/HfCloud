@@ -1,4 +1,4 @@
-#include "include/Input.h"
+#include "Input.h"
 using namespace HfCloud;
 
 void Input::clear(){

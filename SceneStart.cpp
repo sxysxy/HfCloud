@@ -1,7 +1,7 @@
-#include "include/HfCloud.h"
-#include "include/SceneStart.h"
+#include "HfCloud.h"
+#include "SceneStart.h"
 #include "SDL_timer.h"
-#include "include/Fiber.h"
+#include "Fiber.h"
 using namespace HfCloud;
 struct{
     Sprite *sprite;

@@ -1,7 +1,7 @@
-#include "include/stdinc.h"
-#include "include/Sprite.h"
-#include "include/Graphics.h"
-#include "include/Module.h"
+#include "stdinc.h"
+#include "Sprite.h"
+#include "Graphics.h"
+#include "Module.h"
 using namespace HfCloud;
 
 Sprite::Sprite(){

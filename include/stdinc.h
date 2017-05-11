@@ -15,6 +15,8 @@
 #include <deque>
 #include <vector>
 #include <iostream>
+#include <functional>
+#include <thread>
 #include <SDL.h>
 #include <SDL_image.h>
 typedef SDL_Rect Hf_Rect;

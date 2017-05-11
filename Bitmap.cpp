@@ -1,5 +1,5 @@
-#include "include/Graphics.h"
-#include "include/Bitmap.h"
+#include "Graphics.h"
+#include "Bitmap.h"
 using namespace HfCloud;
 
 Bitmap::Bitmap(int w, int h){
