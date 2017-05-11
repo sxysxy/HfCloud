@@ -53,6 +53,7 @@
 			<Add option="-Wall" />
 			<Add option="-std=c++11" />
 			<Add directory="$(#sdl2.include)/SDL2" />
+			<Add directory="./include" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -66,31 +67,64 @@
 			<Add directory="$(#sdl2.lib)" />
 		</Linker>
 		<Unit filename="Bitmap.cpp" />
-		<Unit filename="Bitmap.h" />
-		<Unit filename="Fiber.h">
+		<Unit filename="Graphics.cpp" />
+		<Unit filename="Input.cpp" />
+		<Unit filename="Module.cpp" />
+		<Unit filename="Scene.cpp" />
+		<Unit filename="SceneManager.cpp" />
+		<Unit filename="SceneStart.cpp" />
+		<Unit filename="Sprite.cpp" />
+		<Unit filename="include/Bitmap.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="Graphics.cpp" />
-		<Unit filename="Graphics.h" />
-		<Unit filename="HfCloud.h" />
-		<Unit filename="Input.cpp" />
-		<Unit filename="Input.h" />
-		<Unit filename="Module.cpp" />
-		<Unit filename="Module.h" />
-		<Unit filename="ParamZ.h" />
-		<Unit filename="Scene.cpp" />
-		<Unit filename="Scene.h" />
-		<Unit filename="SceneManager.cpp" />
-		<Unit filename="SceneManager.h" />
-		<Unit filename="SceneStart.cpp" />
-		<Unit filename="SceneStart.h" />
-		<Unit filename="Sprite.cpp" />
-		<Unit filename="Sprite.h" />
+		<Unit filename="include/Fiber.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/Graphics.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/HfCloud.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/Input.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/Module.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/ParamZ.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/Scene.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/SceneManager.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/SceneStart.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/Sprite.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/stdinc.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="static.cpp" />
 		<Unit filename="stdinc.cpp" />
-		<Unit filename="stdinc.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
