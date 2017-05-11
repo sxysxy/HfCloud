@@ -30,7 +30,7 @@ void ApplyConfig(Info &info){
         }
     }
 }
-Fiber fiber;
+extern Fiber fiber;
 int main(int argc, char *argv[]){
     Info info;
     ApplyConfig(info);

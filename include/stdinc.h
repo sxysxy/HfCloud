@@ -17,6 +17,7 @@
 #include <iostream>
 #include <functional>
 #include <thread>
+#include <mutex>
 #include <SDL.h>
 #include <SDL_image.h>
 typedef SDL_Rect Hf_Rect;

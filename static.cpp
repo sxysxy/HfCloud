@@ -3,10 +3,13 @@
 using namespace HfCloud;
 //Fiber
 #include "Fiber.h"
-thread_local std::unordered_map<ProcHandle, Fiber*> Fiber::_fibers;
+std::unordered_map<ProcHandle, Fiber*> Fiber::_fibers;
+std::mutex Fiber::_fibers_mutex;
+
 #ifdef __linux__
 thread_local ProcHandle Fiber::nowRunning = nullptr;
 #endif
+Fiber fiber;
 
 //Graphics
 #include "Graphics.h"

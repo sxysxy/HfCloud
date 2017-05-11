@@ -23,6 +23,7 @@ using ProcHandle = ucontext_t*;
 #include <functional>
 #include <unordered_map>
 #include <unordered_set>
+#include <map>
 #include <memory>
 #include <stack>
 #include "stdinc.h"
@@ -162,7 +163,8 @@ class Fiber {
 
 	}
 
-	static thread_local std::unordered_map<ProcHandle, Fiber*> _fibers;
+	static std::unordered_map<ProcHandle, Fiber*> _fibers;
+	static std::mutex _fibers_mutex;
 
 	std::unordered_map<unsigned, Context> _contexts;
 
@@ -211,7 +213,9 @@ public:
 
 		_handle = it->second.proc;
 
-		_fibers.insert(std::make_pair(_handle, this));
+		_fibers_mutex.lock();
+			_fibers.insert(std::make_pair(_handle, this));
+    	_fibers_mutex.unlock();
 
 		SwitchToFiber(_handle);
 
@@ -269,6 +273,7 @@ public:
 
 #ifdef __linux__
                     free(i.second.pstack);
+                    i.second.pstack = nullptr;
 #endif
 
 				}
@@ -277,7 +282,9 @@ public:
 
 			_dead.clear();
 
-			_fibers.clear();
+      _fibers_mutex.lock();
+				_fibers.clear();
+			_fibers_mutex.unlock();
 
 #ifdef _WIN32
 
@@ -341,15 +348,18 @@ public:
 	}
 
 	static Fiber &fiber() {
+     	 _fibers_mutex.lock();
 
-		ProcHandle handle = GetFiber();
+			ProcHandle handle = GetFiber();
 
-		auto it = _fibers.find(handle);
+			auto it = _fibers.find(handle);
 
-		if (it == _fibers.end())
-			throw std::runtime_error("Fiber proc does not exist");
+			if (it == _fibers.end())
+				throw std::runtime_error("Fiber proc does not exist");
 
-		return *it->second;
+			_fibers_mutex.unlock();
+
+			return *it->second;
 
 	}
 
