@@ -40,11 +40,10 @@
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-g" />
 					<Add option="-Wpedantic" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="SDL2" />
 					<Add library="SDL2_image" />
 				</Linker>
@@ -52,6 +51,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add directory="$(#sdl2.include)/SDL2" />
 			<Add directory="./include" />
 		</Compiler>
