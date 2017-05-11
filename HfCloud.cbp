@@ -33,6 +33,20 @@
 					<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 				</ExtraCommands>
 			</Target>
+			<Target title="Debug-Linux">
+				<Option output="bin/Debug/HfCloud" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL2" />
+					<Add library="SDL2_image" />
+				</Linker>
+			</Target>
 			<Target title="Release-Linux">
 				<Option output="bin/Release/HfCloud" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
@@ -48,26 +62,10 @@
 					<Add library="SDL2_image" />
 				</Linker>
 			</Target>
-			<Target title="Debug-Linux">
-				<Option output="bin/Debug/HfCloud" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Option projectLinkerOptionsRelation="1" />
-				<Compiler>
-					<Add option="-g" />
-				</Compiler>
-				<Linker>
-					<Add library="SDL2" />
-					<Add library="SDL2_image" />
-				</Linker>
-				<ExtraCommands>
-					<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
-				</ExtraCommands>
-			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add directory="$(#sdl2.include)/SDL2" />
 			<Add directory="./include" />
 		</Compiler>
@@ -90,66 +88,18 @@
 		<Unit filename="SceneManager.cpp" />
 		<Unit filename="SceneStart.cpp" />
 		<Unit filename="Sprite.cpp" />
-		<Unit filename="include/Bitmap.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/Fiber.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/Graphics.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/HfCloud.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/Input.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/Module.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/ParamZ.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/Scene.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/SceneManager.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/SceneStart.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/Sprite.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
-		<Unit filename="include/stdinc.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug-Linux" />
-		</Unit>
+		<Unit filename="include/Bitmap.h" />
+		<Unit filename="include/Fiber.h" />
+		<Unit filename="include/Graphics.h" />
+		<Unit filename="include/HfCloud.h" />
+		<Unit filename="include/Input.h" />
+		<Unit filename="include/Module.h" />
+		<Unit filename="include/ParamZ.h" />
+		<Unit filename="include/Scene.h" />
+		<Unit filename="include/SceneManager.h" />
+		<Unit filename="include/SceneStart.h" />
+		<Unit filename="include/Sprite.h" />
+		<Unit filename="include/stdinc.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="static.cpp" />
 		<Unit filename="stdinc.cpp" />
