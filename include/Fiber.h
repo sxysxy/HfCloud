@@ -25,8 +25,12 @@ using ProcHandle = ucontext_t*;
 #include <unordered_set>
 #include <memory>
 #include <stack>
+#include "stdinc.h"
+#ifdef __LINUX__
+#define __linux__ __LINUX__
+#endif
 
-#define FIBER_STACK_SIZE 0x1000
+#define FIBER_STACK_SIZE 0x100000
 
 enum class FiberStatus {
 
@@ -50,7 +54,7 @@ class Fiber {
 
 		ucontext_t ucontext;
 
-		char stack[FIBER_STACK_SIZE];
+		void *pstack; /**< ptr to stack. */
 
 #endif
 
@@ -106,7 +110,7 @@ class Fiber {
 
 		::getcontext(handle);
 
-		handle->uc_stack.ss_sp = context->stack;
+        handle->uc_stack.ss_sp = context->pstack = malloc(FIBER_STACK_SIZE);
 
 		handle->uc_stack.ss_size = FIBER_STACK_SIZE;
 
@@ -262,6 +266,10 @@ public:
 					DeleteFiber(handle);
 
 					handle = nullptr;
+
+#ifdef __linux__
+                    free(i.second.pstack);
+#endif
 
 				}
 
