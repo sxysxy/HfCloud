@@ -2,9 +2,10 @@
 #include "SceneStart.h"
 #include "SDL_timer.h"
 #include "Fiber.h"
+#include "Animation.h"
 using namespace HfCloud;
 struct{
-    Sprite *sprite;
+    Animation *ani;
     int cnt;
     long long last;
     long long now;
@@ -12,35 +13,22 @@ struct{
     char buf[233];
 }data;
 void SceneStart::start_scene(){
-    data.sprite = new Sprite("construction.png");
-    data.sprite->resize(Graphics::width, Graphics::height);
-    data.sprite->setz(100);
-    data.sprite->scale_with_bitmap();
-    main_module->manage(data.sprite);
-    data.freq = SDL_GetPerformanceFrequency();
-    data.last = SDL_GetPerformanceCounter();
-
-    Fiber::fiber()[1] = [&](){
-        for(int i = 0; i < 100; i++){
-            int x = data.sprite->x(), y = data.sprite->y();
-            data.sprite->setpos(x+1, y+1);
-            Fiber::fiber().yield();
-        }
-        data.sprite->setpos(-100, 100);
-        for(int i = 0; i < 100; i++){
-            int x = data.sprite->x(), y = data.sprite->y();
-            data.sprite->setpos(x+1, y-1);
-            Fiber::fiber().yield();
-        }
+    data.ani = new Animation(3600);
+    data.ani->sprite = new Sprite("construction.png");
+    main_module->manage(data.ani->sprite);
+    data.ani->update_frame = [&](){
+        if(data.ani->current_frame%60 <= 30){
+            data.ani->sprite->opacity = 255;
+        }else data.ani->sprite->opacity = 0;
     };
 
+    data.freq = SDL_GetPerformanceFrequency();
+    data.last = SDL_GetPerformanceCounter();
 }
 void SceneStart::end_scene(){}
 void SceneStart::update(){
     Scene::update();
-    try{
-        if(Fiber::fiber().isHungUp(1))Fiber::fiber().resume(1);
-    }catch(...){}
+    data.ani->update();
 
     if(Input::key_is_triggled(SDLK_ESCAPE))SceneManager::exit(); //press esc to quit
     if(++data.cnt == 60){
