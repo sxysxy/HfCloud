@@ -8,12 +8,14 @@
 HFCLOUD_BEGIN
 
 struct AnimationFrame{
-    Sprite *sprite;
+    Sprite *sprite;             //Sprite of this frame
 
+                    //features in future: se(sound effetion),...etc
 };
 
 class AnimationFrames : public Animation{
-
+public:
+    std::vector<AnimationFrame *> ani_frames;
 };
 
 HFCLOUD_END
