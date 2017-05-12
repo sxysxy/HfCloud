@@ -27,7 +27,7 @@ using ProcHandle = ucontext_t*;
 #include <memory>
 #include <stack>
 #include "stdinc.h"
-#ifdef __LINUX__
+#if defined(__LINUX__) && !defined(__linux__)
 #define __linux__ __LINUX__
 #endif
 

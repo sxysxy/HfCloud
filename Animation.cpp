@@ -7,10 +7,10 @@ Animation::Animation(){
     update_frame = [](){};
 }
 Animation::Animation(int fm):Animation(){
-    frames = fm;
+    total_frames = fm;
 }
 void Animation::update(){
-    if(++current_frame > frames)return;
+    if(++current_frame > total_frames)return;
     update_frame();
 }
 

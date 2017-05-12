@@ -9,12 +9,12 @@
 HFCLOUD_BEGIN
 
 class Animation{
+    Animation();
 public:
-    int frames;                 /**< total frames. */
+    int total_frames;           /**< total frames. */
     int current_frame;          /**< current frame. */
     Sprite *sprite;             /**< current sprite to show. */
 
-    Animation();
     Animation(int fm);
 
     std::function<void(void)> update_frame;
