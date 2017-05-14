@@ -13,22 +13,12 @@ struct{
     char buf[233];
 }data;
 void SceneStart::start_scene(){
-    data.ani = new Animation(3600);
-    data.ani->sprite = new Sprite("construction.png");
-    main_module->manage(data.ani->sprite);
-    data.ani->update_frame = [&](){
-        if(data.ani->current_frame%60 <= 30){
-            data.ani->sprite->opacity = 255;
-        }else data.ani->sprite->opacity = 0;
-    };
 
     data.freq = SDL_GetPerformanceFrequency();
     data.last = SDL_GetPerformanceCounter();
 }
 void SceneStart::end_scene(){}
 void SceneStart::update(){
-    Scene::update();
-    data.ani->update();
 
     if(Input::key_is_triggled(SDLK_ESCAPE))SceneManager::exit(); //press esc to quit
     if(++data.cnt == 60){

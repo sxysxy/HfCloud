@@ -17,7 +17,7 @@ public:
 
     Animation(int fm);
 
-    std::function<void(void)> update_frame;
+    std::function<void(Animation *)> update_frame;
     void update();              /**< update Animation. */
 };
 
