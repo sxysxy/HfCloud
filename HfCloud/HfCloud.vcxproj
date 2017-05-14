@@ -167,6 +167,7 @@
     <ClInclude Include="..\include\Input.h" />
     <ClInclude Include="..\include\Module.h" />
     <ClInclude Include="..\include\ParamZ.h" />
+    <ClInclude Include="..\include\ReferredObject.h" />
     <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\SceneManager.h" />
     <ClInclude Include="..\include\SceneStart.h" />
