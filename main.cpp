@@ -4,8 +4,8 @@
 #include "Fiber.h"
 
 using namespace HfCloud;
-const int WINDOW_WIDTH = 544; /**<The width of the game window*/
-const int WINDOW_HEIGHT = 416; /**<The height of the game window*/
+const int WINDOW_WIDTH = 640; /**<The width of the game window*/
+const int WINDOW_HEIGHT = 480; /**<The height of the game window*/
 
 struct Info{
     char title[256];

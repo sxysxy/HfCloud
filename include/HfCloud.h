@@ -8,5 +8,8 @@
 #include "Input.h"
 #include "SceneManager.h"
 #include "Bitmap.h"
+#include "Animation.h"
+#include "AnimationFrames.h"
+#include "Fiber.h"
 
 #endif // _HFCLOUD_H

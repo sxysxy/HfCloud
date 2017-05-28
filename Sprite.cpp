@@ -30,6 +30,7 @@ void Sprite::dispose(){
 void Sprite::set_bitmap(Bitmap *bmp){
     bitmap = bmp;
     set_origin_size();
+    calc_rects();
     SDL_SetTextureBlendMode(bitmap->texture, SDL_BLENDMODE_BLEND);
 }
 void Sprite::update(){
@@ -38,33 +39,25 @@ void Sprite::update(){
     SDL_SetTextureAlphaMod(bitmap->texture, opacity);
     SDL_RenderCopyEx(Graphics::render, bitmap->texture, &clip_rect, &show_rect, -angle, &rcenter, flip);
 }
-#define _m_x() manager->x()
-#define _m_y() manager->y()
-#define _m_w() manager->width()
-#define _m_h() manager->height()
+#define _m_x manager->x()
+#define _m_y manager->y()
+#define _m_w manager->width()
+#define _m_h manager->height()
 void Sprite::calc_rects(){
     if(manager){
-        if(x() > _m_x()+_m_w() || x()+width() < _m_x() ||
-                    y() > _m_y()+_m_h() || y()+height() < _m_y()){
-            clip_rect.w = clip_rect.h = 0; return;     // outside manager's rect
-        }
-        int x1_ = std::min(_m_x(), _x), x2_ = std::max(_m_x()+_m_w(), _x+_w);
-        int y1_ = std::min(_m_y(), _y), y2_ = std::max(_m_y()+_m_h(), _y+_h);
-
-        int x1 = _m_x() == x1_ ? _x : _m_x();
-        int x2 = _m_x()+_m_w() == x2_ ? _x+_w : _m_x()+_m_w();
-        int y1 = _m_y() == y1_ ? _y : _m_y();
-        int y2 = _m_y()+_m_h() == y2_ ? _y+_h : _m_y()+_m_h();
-
-        show_rect.x = x1, show_rect.w = x2-x1;
-        show_rect.y = y1, show_rect.h = y2-y1;
-        clip_rect.x = std::max(0, x1)/scale_bitmap_width; clip_rect.w = show_rect.w * scale_bitmap_width;
-        clip_rect.y = std::max(0, y1)/scale_bitmap_height; clip_rect.h = show_rect.h * scale_bitmap_height;
+        SDL_Rect sprect, uni;
+        sprect.x = _x+_m_x, sprect.y = _y+_m_y, sprect.w = width(), sprect.h = height();
+        SDL_UnionRect(&manager->rect, &sprect, &uni);
+        show_rect = uni;
+        clip_rect.x = (uni.x-show_rect.x)*scale_bitmap_width;
+        clip_rect.y = (uni.y-show_rect.y)*scale_bitmap_height;
+        clip_rect.w = show_rect.w*scale_bitmap_width;
+        clip_rect.h = show_rect.h*scale_bitmap_height;
     }else{
         clip_rect.x = clip_rect.y = 0;
         clip_rect.w = _w*scale_bitmap_width, clip_rect.h = _h*scale_bitmap_height;
         show_rect.x = _x, show_rect.y = _y;
-        show_rect.w = _h, show_rect.h = _h;
+        show_rect.w = _w, show_rect.h = _h;
     }
 }
 #undef _m_x
