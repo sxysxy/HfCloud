@@ -13,12 +13,12 @@ struct{
     char buf[233];
 }data;
 void SceneStart::start_scene(){
-
     data.freq = SDL_GetPerformanceFrequency();
     data.last = SDL_GetPerformanceCounter();
 }
 void SceneStart::end_scene(){}
 void SceneStart::update(){
+    Scene::update();
 
     if(Input::key_is_triggled(SDLK_ESCAPE))SceneManager::exit(); //press esc to quit
     if(++data.cnt == 60){
