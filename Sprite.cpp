@@ -47,10 +47,10 @@ void Sprite::calc_rects(){
     if(manager){
         SDL_Rect sprect, uni;
         sprect.x = _x+_m_x, sprect.y = _y+_m_y, sprect.w = width(), sprect.h = height();
-        SDL_UnionRect(&manager->rect, &sprect, &uni);
+        SDL_IntersectRect(&manager->rect, &sprect, &uni);
         show_rect = uni;
-        clip_rect.x = (uni.x-show_rect.x)*scale_bitmap_width;
-        clip_rect.y = (uni.y-show_rect.y)*scale_bitmap_height;
+        clip_rect.x = sprect.x<uni.x?1.0*(uni.x-sprect.x)*scale_bitmap_width:0;
+        clip_rect.y = sprect.y<uni.y?1.0*(uni.y-sprect.y)*scale_bitmap_height:0;
         clip_rect.w = show_rect.w*scale_bitmap_width;
         clip_rect.h = show_rect.h*scale_bitmap_height;
     }else{
