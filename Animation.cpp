@@ -3,7 +3,7 @@ using namespace HfCloud;
 
 Animation::Animation(){
     sprite = NULL;
-    current_frame = 1;
+    current_frame = 0;
     update_frame = [](Animation *ani){};
 }
 Animation::Animation(int fm):Animation(){

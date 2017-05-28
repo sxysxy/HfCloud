@@ -18,7 +18,7 @@ public:
     Animation(int fm);
 
     std::function<void(Animation *)> update_frame;
-    void update();              /**< update Animation. */
+    virtual void update();              /**< update Animation. */
 };
 
 HFCLOUD_END
