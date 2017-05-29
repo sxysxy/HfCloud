@@ -55,7 +55,7 @@ public:
     void clear();                           /**<clear this bitmap with color(0,0,0,0), */
     void blt(const HfRect &dest, const Bitmap *bmp, const HfRect &src);  /**<blt from bmp's src_rect to this bitmap's dest_rect, */
     void blt_ex(const HfRect &dest, const Bitmap *bmp, const HfRect &src,
-                    int opacity, const HfPoint &rcenter, int angle, bool hmirror, bool vmirror);
+                    int opacity, const HfPoint &rcenter, double angle, bool hmirror, bool vmirror);
 };
 HFCLOUD_END
 #endif // _BITMAP_H

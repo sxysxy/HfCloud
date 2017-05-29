@@ -38,4 +38,11 @@ struct HfPoint : public SDL_Point{
     }
 };
 }
+
+#ifdef _MSC_VER
+#define HfText(s) s
+#else
+#define HfText(s) u8##s
+#endif
+
 #endif // _STD_INC_FILES

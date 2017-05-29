@@ -4,25 +4,14 @@
 
 HFCLOUD_BEGIN
 
-struct KeyInfo{
-    int sym, type;  //key symbol, event type
-    bool repeat;    //repeat?
-};
-struct ButtonInfo{
-    int type, clicks, button;  //event type, click times, button index.
-    int x, y;       //position
-};
 class Input{
 public:
-    static std::vector<KeyInfo> keys;               /**<a std::vector stores key events*/
-    static std::vector<ButtonInfo> buttons;         /**<a std::vector stores button events*/
+    static Uint8 *state_table;
 
-    static void clear();                /**<clear all vectors.*/
-    static void update(SDL_KeyboardEvent &keve);            /**<update by input events. */
-    static void update(SDL_MouseButtonEvent &meve);         /**<update by button events. */
+    static void clear();                    /**<clear all vectors.*/
+    static void update();                   /**<update by input events. */
 
-    static bool key_on_state(int key_sym, int key_state);   /**<query that a kay's state. */
-    static bool key_is_triggled(int key);  /**<query that a kay is triggled?*/
+    static bool key_is_pressed(int key);    /**<query that a kay is pressed?*/
 };
 
 HFCLOUD_END

@@ -16,7 +16,8 @@ struct{
 
 }t_data; //title_data;
 void SceneStart::start_scene(){
-    Graphics::set_title(u8"东方神圣魔王 -- Lunatic of Holy Kingdom ~v0.01a");
+    Scene::start_scene();
+    Graphics::set_title(HfText("东方神圣魔王 -- Lunatic of Holy Kingdom ~v0.01a"));
     t_data.title_back = new Sprite("sources/title/back.png");
     t_data.title_circle = new Sprite("sources/title/circle.png");
     t_data.title_circle->show_rect.x = 450, t_data.title_circle->show_rect.y = 350;
@@ -29,6 +30,7 @@ void SceneStart::start_scene(){
     t_data.disposed = false;
 }
 void SceneStart::end_scene(){
+    Scene::end_scene();
     if(!t_data.disposed){
         t_data.title_back->bitmap->dispose();
         delete t_data.title_back->bitmap;
@@ -40,22 +42,31 @@ void SceneStart::end_scene(){
         t_data.disposed = true;
     }
 }
+void calc_cursor_pos(int t){
+    t_data.title_cursor->setpos(350, 170+80*t/20);
+}
 void SceneStart::update(){
     Scene::update();
 
     //update pictures
-    t_data.title_back->update();
-    t_data.title_circle->update();
-    t_data.title_circle->angle++;
-
+    auto updater = [&](int t){
+        t_data.title_back->update();
+        t_data.title_circle->update();
+        t_data.title_circle->angle += 3;
+        calc_cursor_pos(t);
+        t_data.title_cursor->update();
+    };
+    updater(20*t_data.cursor_pos);
     //update curosr
-    if(Input::key_is_triggled(SDLK_UP) || Input::key_is_triggled(SDLK_DOWN))
+    if(Input::key_is_pressed(SDLK_UP) || Input::key_is_pressed(SDLK_DOWN)){
         t_data.cursor_pos ^= 1;
-    t_data.title_cursor->show_rect.x = 350;
-    t_data.title_cursor->show_rect.y = 170+t_data.cursor_pos*80;
-    t_data.title_cursor->update();
+        wait(20, [&](int d){
+            Graphics::clear();
+            updater(t_data.cursor_pos?d:19-d);
+        });
+    }
 
-    if(Input::key_is_triggled(SDLK_RETURN) || Input::key_is_triggled(SDLK_z)){ //return / z
+    if(Input::key_is_pressed(SDLK_RETURN) || Input::key_is_pressed(SDLK_z)){ //return / z
         switch(t_data.cursor_pos){
         case 0:
             stage1.start();   //new game

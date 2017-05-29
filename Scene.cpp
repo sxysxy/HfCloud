@@ -3,10 +3,13 @@
 #include "Graphics.h"
 #include "Input.h"
 #include "Module.h"
+#include "Fiber.h"
 using namespace HfCloud;
 
 Scene::Scene(){
     main_module = nullptr;
+    fade_time = 30;
+    fading = false;
 }
 Scene::~Scene(){
     delete main_module;
@@ -14,25 +17,18 @@ Scene::~Scene(){
 
 void Scene::start_scene(){
     main_module = new Module(0, 0, Graphics::width, Graphics::height);
+    fading = true;
 }
 void Scene::end_scene(){
     delete main_module;
     main_module = nullptr;
+    fading = false;
 }
 
-void Scene::update_event(bool update_keys = true){
+void Scene::update_event(){
     SDL_Event eve;
     while(SDL_PollEvent(&eve)){
-        if(eve.type == SDL_QUIT)SceneManager::exit(); //exit event
-                //input events
-        if(!update_keys)continue;
-        if(eve.type == SDL_KEYDOWN || eve.type == SDL_KEYUP){ //...
-            Input::update(eve.key);
-        //}else if(eve.type == SDL_MOUSEMOTION){
-         //   Input::update(eve.motion);
-        }else if(eve.type == SDL_MOUSEBUTTONDOWN || eve.type == SDL_MOUSEBUTTONUP){
-            Input::update(eve.button);
-        }
+        if(eve.type == SDL_QUIT)SceneManager::exit(); //exit event, for example click 'x'
     }
 }
 void Scene::update(){
@@ -42,20 +38,52 @@ void Scene::update(){
 
 void Scene::main_proc(){
     if(!this)return;
+    fiber = &Fiber::fiber();
+
+    (*fiber)[1] = [&](){
+        while(true){
+            Graphics::clear();              //clear the Graphics in order to redraw
+            update();
+            yield_for_wait();
+        }
+    };
     start_scene();
     while(this == SceneManager::scene){
-        Graphics::clear();              //clear the Graphics in order to redraw
-        Input::clear();                 //clear the input buffer
-        update();                       //update
-        Graphics::update();             //render the Graphics and update frame count.
+        Input::update();                    //clear the input buffer
+        fiber->resume(1);
+        Graphics::update();
     }
     end_scene();
+    fiber->kill(1);
 }
-
 void Scene::update_for_wait(){
+    update_event();
     Graphics::update();
-    update_event(false);  // process events in order not to die...
+}
+void Scene::update_wait(int d){
+    while(d--)update_for_wait();
+}
+void Scene::update_wait(int d, const std::function<void(int)> &updater){
+    for(int i = 0; i < d; i++){
+        updater(i);
+        update_for_wait();
+    }
+}
+void Scene::yield_for_wait(){
+    fiber->yield();
 }
 void Scene::wait(int d){
-    while(d--)update_for_wait();
+    while(d--)yield_for_wait();
+}
+void Scene::wait(int d, const std::function<void(int)> &updater){
+    for(int i = 0; i < d; i++){
+        updater(i);
+        yield_for_wait();
+    }
+}
+void Scene::fade_in(){
+
+}
+void Scene::fade_out(){
+
 }

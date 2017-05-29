@@ -282,7 +282,7 @@ public:
 
 			_dead.clear();
 
-      _fibers_mutex.lock();
+            _fibers_mutex.lock();
 				_fibers.clear();
 			_fibers_mutex.unlock();
 
@@ -344,7 +344,7 @@ public:
 			_dead.insert(handle);
 		else
 			throw std::runtime_error("Fiber proc did not run.");
-
+		_contexts.erase(it);
 	}
 
 	static Fiber &fiber() {
@@ -364,3 +364,5 @@ public:
 	}
 
 };
+
+#define FIBER_USER 20

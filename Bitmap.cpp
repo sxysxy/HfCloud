@@ -64,9 +64,11 @@ void Bitmap::set_pixels(const HfPoint *ps, HfCloud::Color color, int cnt){
     _RESET_COLOR
 }
 void Bitmap::clear(HfCloud::Color color){
-    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_NONE);
-    fill_rect(HfRect(0, 0, width(), height()), 0);
-    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+    _SET_TARGET
+    _SET_COLOR
+    SDL_RenderClear(Graphics::render);
+    _RESET_TARGET
+    _RESET_COLOR
 }
 void Bitmap::clear(){
     clear(0);
@@ -74,6 +76,15 @@ void Bitmap::clear(){
 void Bitmap::blt(const HfRect &dest, const Bitmap *bmp, const HfRect &src){
     _SET_TARGET
     SDL_RenderCopy(Graphics::render, bmp->texture, &src, &dest);
+    _RESET_TARGET
+}
+void Bitmap::blt_ex(const HfRect &dest, const Bitmap *bmp, const HfRect &src, int opacity,
+                    const HfPoint &renter, double angle, bool hmirror, bool vmirror){
+    _SET_TARGET
+    SDL_RendererFlip flip = (SDL_RendererFlip)((hmirror*SDL_FLIP_HORIZONTAL)|(vmirror*SDL_FLIP_VERTICAL));
+    SDL_SetTextureAlphaMod(bmp->texture, opacity);
+    SDL_RenderCopyEx(Graphics::render, bmp->texture, &src, &dest, -angle, &renter, flip);
+    SDL_SetTextureAlphaMod(bmp->texture, 255);
     _RESET_TARGET
 }
 

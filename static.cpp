@@ -25,10 +25,6 @@ Scene *SceneManager::scene;
 std::vector<Scene *> SceneManager::scenes;
 std::vector<Scene *> del_scenes;
 
-//input
+//Input
 #include "Input.h"
-std::vector<KeyInfo> Input::keys;
-std::vector<ButtonInfo> Input::buttons;
-
-//
-
+Uint8 *Input::state_table = (Uint8 *)SDL_GetKeyboardState(NULL);

@@ -24,6 +24,8 @@ public:
     static void set_title(const std::string &t);  /**<set the title of the window. */
 
     static void check_vsync();
+
+    static void blend_color(HfCloud::Color color);  /**<blend color on the screen. */
 };
 
 HFCLOUD_END
