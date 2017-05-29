@@ -11,7 +11,7 @@ class Module{
     bool _sp_ordered;               //oerderd flag
     void _sp_sort();                //sort the sprites.
 public:
-    Hf_Rect rect;                              /**<the rect shows the area it lays on*/
+    HfRect rect;                              /**<the rect shows the area it lays on*/
     std::vector<Sprite *> sprites;             /**<sprites*/
 
     Module(){
@@ -24,7 +24,7 @@ public:
         rect.x = x, rect.y = y, rect.w = w, rect.h = h;
     } /**<construct by a rect of (x, y, w, h)*/
 
-    Module(Hf_Rect rt){
+    Module(HfRect rt){
         Module();
         rect = rt;
     }; /**<construct by a rect*/

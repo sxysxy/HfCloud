@@ -22,8 +22,11 @@ void Input::update(SDL_MouseButtonEvent &meve){
     info.button = meve.button;
     Input::buttons.push_back(info);
 }
-bool Input::key_is_triggled(int key_sym){
+bool Input::key_on_state(int key_sym, int key_state){
     for(KeyInfo &info : Input::keys)
-        if(key_sym == info.sym && info.type == SDL_KEYDOWN)return true;
+        if(key_sym == info.sym && info.type == key_state)return true;
     return false;
+}
+bool Input::key_is_triggled(int key_sym){
+    return key_on_state(key_sym, SDL_KEYDOWN);
 }

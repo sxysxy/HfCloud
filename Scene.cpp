@@ -6,15 +6,18 @@
 using namespace HfCloud;
 
 Scene::Scene(){
-    main_module = new Module(0, 0, Graphics::width, Graphics::height);
+    main_module = nullptr;
 }
 Scene::~Scene(){
     delete main_module;
 }
 
 void Scene::start_scene(){
+    main_module = new Module(0, 0, Graphics::width, Graphics::height);
 }
 void Scene::end_scene(){
+    delete main_module;
+    main_module = nullptr;
 }
 
 void Scene::update_event(bool update_keys = true){
@@ -34,7 +37,7 @@ void Scene::update_event(bool update_keys = true){
 }
 void Scene::update(){
     update_event();
-    main_module->update();
+    if(main_module)main_module->update();
 }
 
 void Scene::main_proc(){

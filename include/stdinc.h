@@ -20,13 +20,22 @@
 #include <mutex>
 #include <SDL.h>
 #include <SDL_image.h>
-typedef SDL_Rect Hf_Rect;
-typedef SDL_Color Hf_Color;
-typedef SDL_Point Hf_Point;
 
 namespace HfCloud{}
 
 #define HFCLOUD_BEGIN namespace HfCloud{
 #define HFCLOUD_END }
 
+namespace HfCloud{
+struct HfRect : public SDL_Rect{
+    HfRect(int _x = 0, int _y = 0, int _w = 0, int _h = 0){
+        x = _x, y = _y, w = _w, h = _h;
+    }
+};
+struct HfPoint : public SDL_Point{
+    HfPoint(int _x = 0, int _y = 0){
+        x = _x, y = _y;
+    }
+};
+}
 #endif // _STD_INC_FILES

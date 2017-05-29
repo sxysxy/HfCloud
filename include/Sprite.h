@@ -20,7 +20,7 @@ public:
     Module *manager;        /**< managing module of this sprite, It's OK to be NULL. */
     unsigned char opacity;  /**< opacity value. */
     double angle;           /**< rotation angle. Anti-clockwise. */
-    Hf_Point rcenter;       /**< rotation center. */
+    HfPoint rcenter;       /**< rotation center. */
     bool hmirror;           /**< horizon mirror flag. */
     bool vmirror;           /**< vertical mirror flag. */
     double scale_bitmap_width;         /**< scale width of bitmap when clip it.*/

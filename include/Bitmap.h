@@ -38,7 +38,6 @@ class Bitmap{
     int _h;     /**< height, private, only provide reading interface */
 public:
     SDL_Texture *texture;       /**<SDL_Texture Object of this Bitmap object */
-    HfCloud::Color color;       /**<Current Color. */
     Bitmap(int w, int h);       /**<Create a bitmap of (width:w, height:h). RGBA Model.  */
     Bitmap(const std::string &fn);   /**<Create a bitmap from a picture file. */
     ~Bitmap(){}                      /**<useless, as for Bitmap, DO NOT FREE SOURCES IN DESTRUCTOR.
@@ -47,12 +46,16 @@ public:
 
     int width();            /**<get the width of the bitmap*/
     int height();           /**<get the height of the bitmap*/
-    void fill_rect(Hf_Rect &rect, HfCloud::Color color); /**<render a rect. */
+    void fill_rect(const HfRect &rect, HfCloud::Color color); /**<render a rect. */
     void fill_rect(int x, int y, int w, int h, HfCloud::Color color); /**<render a rect. */
-    void fill_rects(Hf_Rect *rects, HfCloud::Color color, int cnt);  /**<render some rects. */
+    void fill_rects(const HfRect *rects, HfCloud::Color color, int cnt);  /**<render some rects. */
     void set_pixel(int x, int y, HfCloud::Color color);  /**<render a point; */
-    void set_pixels(Hf_Point *ps, HfCloud::Color color, int cnt);    /**<redner some points. */
-    void clear();       /**<clear this bitmap*/
+    void set_pixels(const HfPoint *ps, HfCloud::Color color, int cnt);    /**<redner some points. */
+    void clear(HfCloud::Color color);       /**<clear this bitmap with color*/
+    void clear();                           /**<clear this bitmap with color(0,0,0,0), */
+    void blt(const HfRect &dest, const Bitmap *bmp, const HfRect &src);  /**<blt from bmp's src_rect to this bitmap's dest_rect, */
+    void blt_ex(const HfRect &dest, const Bitmap *bmp, const HfRect &src,
+                    int opacity, const HfPoint &rcenter, int angle, bool hmirror, bool vmirror);
 };
 HFCLOUD_END
 #endif // _BITMAP_H

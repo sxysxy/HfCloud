@@ -31,7 +31,6 @@ void Sprite::set_bitmap(Bitmap *bmp){
     bitmap = bmp;
     set_origin_size();
     calc_rects();
-    SDL_SetTextureBlendMode(bitmap->texture, SDL_BLENDMODE_BLEND);
 }
 void Sprite::update(){
     if(_disposed)return;

@@ -21,6 +21,7 @@ public:
     static void update(SDL_KeyboardEvent &keve);            /**<update by input events. */
     static void update(SDL_MouseButtonEvent &meve);         /**<update by button events. */
 
+    static bool key_on_state(int key_sym, int key_state);   /**<query that a kay's state. */
     static bool key_is_triggled(int key);  /**<query that a kay is triggled?*/
 };
 
