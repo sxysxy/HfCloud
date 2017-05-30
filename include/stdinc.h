@@ -56,7 +56,7 @@ struct HfPoint : public SDL_Point{
 #include <fstream>
 namespace HfCloud{extern std::ofstream HfDebug_log;}
 #define HFASSERT(x, info) \
-    if(!(x)){HfDebug_log << "Assert Failed" << "   At:" << __FILE__ << " line: " <<__LINE__ << "\n    Error: " << info << '\n'; HfDebug_log.flush();}
+    if(!(x)){HfCloud::HfDebug_log << "Assert Failed" << "   At:" << __FILE__ << " line: " <<__LINE__ << "\n    Error: " << info << '\n'; HfCloud::HfDebug_log.flush();}
 
 #define HFASSERT_WITH_SDLERROR(x) HFASSERT(x, SDL_GetError())
 
