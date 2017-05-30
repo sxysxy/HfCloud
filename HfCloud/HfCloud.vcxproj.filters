@@ -104,9 +104,6 @@
     <ClInclude Include="..\include\AnimationFrames.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\STG_Stage1.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\ComputationalGeometry.h">
       <Filter>头文件</Filter>
     </ClInclude>

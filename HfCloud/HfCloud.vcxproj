@@ -179,7 +179,6 @@
     <ClInclude Include="..\include\SceneStart.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\stdinc.h" />
-    <ClInclude Include="..\include\STG_Stage1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -104,7 +104,6 @@
 		<Unit filename="include/Module.h" />
 		<Unit filename="include/ParamZ.h" />
 		<Unit filename="include/ReferredObject.h" />
-		<Unit filename="include/STG_Stage1.h" />
 		<Unit filename="include/Scene.h" />
 		<Unit filename="include/SceneManager.h" />
 		<Unit filename="include/SceneStart.h" />
