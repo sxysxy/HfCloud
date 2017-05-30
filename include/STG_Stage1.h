@@ -222,6 +222,7 @@ struct PlayerShoot{
             shoots_map->blt_ex(HfRect(20, y, 20, 16), shoot_bmp, HfRect(0, 0, 20, 16), 255, HfPoint(0, 0), 0, true, false);
         }
         shoots_bmp = new Bitmap(40, 16*27);
+        shoots_bmp->clear();
         shoots_sprite = new Sprite(shoots_bmp);
         //shoots_bmp->blt(HfRect(0, 0, 40, 16*27), shoots_map, HfRect(0, 0, 40, 16*27));
         scene->tasks.push_back([&](){
@@ -289,6 +290,7 @@ struct PlayerBomb{
         mop_bmp = new Bitmap("sources/th14/player/pl00/pl00f.png");
 
         bomb_bmp = new Bitmap(BOMB_WIDTH, BOMB_HEIGHT);
+        bomb_bmp->clear();
         bomb_sprite = new Sprite(bomb_bmp);
 
         scene->tasks.push_back([&]() {

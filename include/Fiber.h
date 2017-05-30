@@ -346,10 +346,12 @@ public:
 
 		ProcHandle handle = it->second.proc;
 
+#ifndef __linux__
 		if (handle)
 			_dead.insert(handle);
 		else
 			throw std::runtime_error("Fiber proc did not run.");
+#endif
 		_contexts.erase(it);
 	}
 
