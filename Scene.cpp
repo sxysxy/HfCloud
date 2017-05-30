@@ -17,6 +17,7 @@ Scene::~Scene(){
 
 void Scene::start_scene(){
     main_module = new Module(0, 0, Graphics::width, Graphics::height);
+    HFASSERT(main_module != nullptr, "Create main_module failed")
    // fading = true;
 }
 void Scene::end_scene(){
@@ -60,9 +61,11 @@ void Scene::update_for_wait(){
     Graphics::update();
 }
 void Scene::update_wait(int d){
+    HFASSERT(d >= 0, "Wait time should >= 0")
     while(d--)update_for_wait();
 }
 void Scene::update_wait(int d, const std::function<void(int)> &updater){
+    HFASSERT(d >= 0, "Wait time should >= 0")
     for(int i = 0; i < d; i++){
         updater(i);
         update_for_wait();
@@ -72,9 +75,11 @@ void Scene::yield_for_wait(){
     fiber->yield();
 }
 void Scene::wait(int d){
+    HFASSERT(d >= 0, "Wait time should >= 0")
     while(d--)yield_for_wait();
 }
 void Scene::wait(int d, const std::function<void(int)> &updater){
+    HFASSERT(d >= 0, "Wait time should >= 0")
     for(int i = 0; i < d; i++){
         updater(i);
         yield_for_wait();

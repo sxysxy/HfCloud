@@ -112,6 +112,7 @@ class Fiber {
 		::getcontext(handle);
 
         handle->uc_stack.ss_sp = context->pstack = malloc(FIBER_STACK_SIZE);
+        HFASSERT(context->pstack != nullptr, "Create fiber failed when allocating stack.")
 
 		handle->uc_stack.ss_size = FIBER_STACK_SIZE;
 

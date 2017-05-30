@@ -1,5 +1,6 @@
 #include "Graphics.h"
 #include "Bitmap.h"
+
 using namespace HfCloud;
 
 Bitmap::Bitmap(int w, int h){
@@ -8,11 +9,15 @@ Bitmap::Bitmap(int w, int h){
     #else
     texture = SDL_CreateTexture(Graphics::render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, w, h);
     #endif
+    HFASSERT_WITH_SDLERROR(texture != nullptr)
+
     _w = w, _h = h;
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 }
 Bitmap::Bitmap(const std::string &fn){
     texture = IMG_LoadTexture(Graphics::render, fn.c_str());
+    HFASSERT_WITH_SDLERROR(texture != nullptr)
+
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     SDL_QueryTexture(texture, NULL, NULL, &_w, &_h);
 }

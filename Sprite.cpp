@@ -33,7 +33,9 @@ void Sprite::set_bitmap(Bitmap *bmp){
     calc_rects();
 }
 void Sprite::update(){
+    HFASSERT(!_disposed, "Update disposed sprite")
     if(_disposed)return;
+
     SDL_RendererFlip flip = (SDL_RendererFlip)((hmirror*SDL_FLIP_HORIZONTAL)|(vmirror*SDL_FLIP_VERTICAL));
     SDL_SetTextureAlphaMod(bitmap->texture, opacity);
     SDL_RenderCopyEx(Graphics::render, bitmap->texture, &clip_rect, &show_rect, -angle, &rcenter, flip);
@@ -74,6 +76,9 @@ void Sprite::setz(int z){
     ParamZ::setz(z); if(manager)manager->not_ordered();
 }
 void Sprite::scale_with_bitmap(){
+    HFASSERT(_w != 0, "The width of a sprte can't be zero when scale_with_bitmap")
+    HFASSERT(_h != 0, "The height of a sprte can't be zero when scale_with_bitmap")
+
     scale_bitmap_width = 1.0*bitmap->width()/_w;
     scale_bitmap_height = 1.0*bitmap->height()/_h;
 }

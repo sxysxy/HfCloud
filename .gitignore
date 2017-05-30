@@ -9,4 +9,5 @@ HfCloud.layout
 /bin
 /sources
 /x64
+/HfDebug_log.txt
 

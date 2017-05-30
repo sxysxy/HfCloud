@@ -7,6 +7,7 @@ Animation::Animation(){
     update_frame = [](Animation *ani){};
 }
 Animation::Animation(int fm):Animation(){
+    HFASSERT(fm >= 0, "Total frames of an Animation should >= 0")
     total_frames = fm;
 }
 void Animation::update(){

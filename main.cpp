@@ -39,8 +39,12 @@ int main(int argc, char *argv[]){
     info.window = SDL_CreateWindow(info.title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                     WINDOW_WIDTH, WINDOW_HEIGHT,
                                     SDL_WINDOW_SHOWN);
+    HFASSERT_WITH_SDLERROR(info.window != nullptr)
+
     info.render = SDL_CreateRenderer(info.window , -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
                                                 // open GPU accelerating, open vertical sync
+    HFASSERT_WITH_SDLERROR(info.render != nullptr)
+
     Graphics::window = info.window;
     Graphics::render = info.render;
     Graphics::width = WINDOW_WIDTH;

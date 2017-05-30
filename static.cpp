@@ -1,6 +1,10 @@
 
 #include "stdinc.h"
 using namespace HfCloud;
+#ifdef HFDEBUG
+namespace HfCloud{std::ofstream HfDebug_log("HfDebug_log.txt");}
+#endif
+
 //Fiber
 #include "Fiber.h"
 std::unordered_map<ProcHandle, Fiber*> Fiber::_fibers;
@@ -28,3 +32,4 @@ std::vector<Scene *> del_scenes;
 //Input
 #include "Input.h"
 Uint8 *Input::state_table = (Uint8 *)SDL_GetKeyboardState(NULL);
+
