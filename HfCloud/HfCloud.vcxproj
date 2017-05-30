@@ -150,6 +150,7 @@
     <ClCompile Include="..\Animation.cpp" />
     <ClCompile Include="..\AnimationFrames.cpp" />
     <ClCompile Include="..\Bitmap.cpp" />
+    <ClCompile Include="..\ComputationalGeometry.cpp" />
     <ClCompile Include="..\Graphics.cpp" />
     <ClCompile Include="..\Input.cpp" />
     <ClCompile Include="..\main.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\AnimationFrames.h" />
     <ClInclude Include="..\include\Bitmap.h" />
+    <ClInclude Include="..\include\ComputationalGeometry.h" />
     <ClInclude Include="..\include\Fiber.h" />
     <ClInclude Include="..\include\Graphics.h" />
     <ClInclude Include="..\include\HfCloud.h" />

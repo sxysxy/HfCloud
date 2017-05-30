@@ -85,6 +85,7 @@
 		<Unit filename="Animation.cpp" />
 		<Unit filename="AnimationFrames.cpp" />
 		<Unit filename="Bitmap.cpp" />
+		<Unit filename="ComputationalGeometry.cpp" />
 		<Unit filename="Graphics.cpp" />
 		<Unit filename="Input.cpp" />
 		<Unit filename="Module.cpp" />
@@ -95,12 +96,14 @@
 		<Unit filename="include/Animation.h" />
 		<Unit filename="include/AnimationFrames.h" />
 		<Unit filename="include/Bitmap.h" />
+		<Unit filename="include/ComputationalGeometry.h" />
 		<Unit filename="include/Fiber.h" />
 		<Unit filename="include/Graphics.h" />
 		<Unit filename="include/HfCloud.h" />
 		<Unit filename="include/Input.h" />
 		<Unit filename="include/Module.h" />
 		<Unit filename="include/ParamZ.h" />
+		<Unit filename="include/ReferredObject.h" />
 		<Unit filename="include/STG_Stage1.h" />
 		<Unit filename="include/Scene.h" />
 		<Unit filename="include/SceneManager.h" />

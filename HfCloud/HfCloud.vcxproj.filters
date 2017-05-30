@@ -54,6 +54,9 @@
     <ClCompile Include="..\AnimationFrames.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\ComputationalGeometry.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bitmap.h">
@@ -102,6 +105,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\STG_Stage1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ComputationalGeometry.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
