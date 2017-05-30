@@ -46,12 +46,31 @@ struct CGPoint{
     bool operator>=(const CGPoint &p2)const;                /**< point p1 < p2.           */
 };
 
-double CGdist(const CGPoint &p);                                      /**<dist to (0. 0).           */
-double CGdist(const CGPoint &p1, const CGPoint &p2);                  /**<dist from p1 to p2.       */
+double CGdist(const CGPoint &p);                                      /**< dist to (0. 0).          */
+double CGdist(const CGPoint &p1, const CGPoint &p2);                  /**< dist from p1 to p2.      */
+CGPoint CGunit(const CGVector &v);                                    /**< dest of unit vector.     */
 double CGcross(const CGVector &v1, const CGVector &v2);               /**< v1,v2 croos product.     */
 double CGdot(const CGVector &v1, const CGVector &v2);                 /**< v1,v2 dot product.       */
 double CGarea(const CGPoint &a, const CGPoint &b, const CGPoint &c);  /**< triangle(a, b, c)'s area.*/
 double CGangle(const CGVector &v1, const CGVector &v2);               /**< acos<v1, v2>.            */
 CGPoint CGproject(const CGVector &v1, const CGVector &v2);            /**< project v1 on v2.        */
+
+struct CGLine{
+    CGPoint a, b;
+    CGLine(){}
+    CGLine(const CGPoint p1, CGPoint p2){
+        a = p1, b = p2-p1;
+    }
+    CGLine(double a1, double b1, double c1);        /**< a1 x + b1 y + c1 >= 0 .            */
+    double angle();                                 /**< line angle.                        */
+    bool include(const CGPoint &p);                 /**< judge that p is on the line.       */
+    bool onleft(const CGPoint &p);                  /**< judge that p is on the left(down). */
+    bool onright(const CGPoint &p);                 /**< judge that p is on the right(up) . */
+
+    bool operator==(const CGLine &ol);              /**< judge that self and ol is the same.*/
+};
+
+double CGdist(const CGPoint &p, const CGLine &l);   /**< the dist from point p to line l.   */
+bool CGparallel(const CGLine &l1, const CGLine l2); /**< judge that l1 // l2.               */
 
 HFCLOUD_END

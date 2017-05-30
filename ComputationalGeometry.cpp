@@ -64,11 +64,19 @@ bool CGPoint::operator<=(const CGPoint &p2)const{
 bool CGPoint::operator>=(const CGPoint &p2)const{
     return *this > p2 || *this == p2;
 }
+
+//-----------------------
+
 double CGdist(const CGPoint &p){
     return sqrt(p.x*p.x+p.y+p.y);
 }
 double CGdist(const CGPoint &p1, const CGPoint &p2){
     return sqrt((p1.x-p2.x)*(p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y));
+}
+CGPoint CGunit(const CGVector &v){
+    double d = sqrt(v.x*v.x+v.y*v.y);
+    if(CGdcmp(d) > 0)return v/d;
+    else return v;
 }
 double CGcross(const CGVector &v1, const CGVector &v2){
     return v1.x*v2.y-v2.x*v1.y;
@@ -84,8 +92,49 @@ double CGangle(const CGVector &v1, const CGVector &v2){
 }
 CGPoint CGproject(const CGVector &v1, const CGVector &v2){
     double dv2 = (v2.x*v2.x+v2.y*v2.y);
-    if(CGdcmp(dv2) > 9)return v2*(CGdot(v1, v2)/dv2);
+    if(CGdcmp(dv2) > 0)return v2*(CGdot(v1, v2)/dv2);
     else return CGPoint(0, 0);
+}
+
+//---------------
+
+CGLine::CGLine(double a1, double b1, double c1){
+    if(CGdcmp(b1-a1)){
+        a = CGPoint(0, -c1/b1);
+        if(CGdcmp(b1) > 0)b = CGPoint(1, -a1/b1);
+        else b = CGPoint(-1, a1/b1);
+    }else if(CGdcmp(a1)){
+        a = CGPoint(-c1/a1, 0);
+        if(CGdcmp(a1) > 0)
+            b = CGPoint(b1/a1, -1);
+        else b = CGPoint(-b1/a1, 1);
+    }
+}
+double CGLine::angle(){
+    double ang = atan2(b.y, b.x);
+    if(ang < 0)ang += CG_PI;
+    if(!CGdcmp(CG_PI-ang))ang = 0;
+    return ang;
+}
+bool CGLine::include(const CGPoint &p){
+    return !CGdcmp(CGcross(a-p, b));
+}
+bool CGLine::onleft(const CGPoint &p){
+    return CGdcmp(CGcross(b, p-a)) > 0;
+}
+bool CGLine::onright(const CGPoint &p){
+    return CGdcmp(CGcross(b, p-a)) < 0;
+}
+bool CGLine::operator==(const CGLine &ol){
+    return include(ol.a) && include(ol.b);
+}
+
+//-------------------------------------------------
+double CGdist(const CGPoint &p, const CGLine &l){
+    return fabs(CGcross(l.b, p-l.a))/CGdist(l.b);
+}
+bool CGparallel(const CGLine &l1, const CGLine l2){
+    return CGunit(l1.b) == CGunit(l2.b) || CGunit(l1.b) == -CGunit(l2.b);
 }
 
 HFCLOUD_END
