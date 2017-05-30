@@ -168,21 +168,25 @@ struct Player{
         sprite->setpos(x, y);
     }
     void on_keyup(){
+        if(!Input::key_is_pressed(SDLK_UP))return;
         dir = 2;
         y -= (Input::key_is_pressed(SDLK_LEFT) || Input::key_is_pressed(SDLK_RIGHT))?(int)(1.0*speed/SQRT2):speed;
         pos_correct();
     }
     void on_keydown(){
+        if(!Input::key_is_pressed(SDLK_DOWN))return;
         dir = 8;
         y += (Input::key_is_pressed(SDLK_LEFT) || Input::key_is_pressed(SDLK_RIGHT))?(int)(1.0*speed/SQRT2):speed;
         pos_correct();
     }
     void on_keyleft(){
+        if(!Input::key_is_pressed(SDLK_LEFT))return;
         dir = 4;
         x -= (Input::key_is_pressed(SDLK_UP) || Input::key_is_pressed(SDLK_DOWN))?(int)(1.0*speed/SQRT2):speed;
         pos_correct();
     }
     void on_keyright(){
+        if(!Input::key_is_pressed(SDLK_RIGHT))return;
         dir = 6;
         x += (Input::key_is_pressed(SDLK_UP) || Input::key_is_pressed(SDLK_DOWN))?(int)(1.0*speed/SQRT2):speed;
         pos_correct();
@@ -272,8 +276,6 @@ struct PlayerBomb{
     SceneStage1 *scene;
     bool showing;
     int show_time_left;
-    int angle;
-    int angle_sig;
     std::function<std::pair<int, int>(void)> get_player_pos;
     std::map<std::pair<int, int>, std::function<void(void)> >::iterator pshift;
 
@@ -320,26 +322,32 @@ struct PlayerBomb{
         disposed = true;
     }
     void show_fiber_proc(){
+        int mop_angle = 0, mop_angle_sig = 1;
+        int light_angle = 0;
         while(show_time_left--){
             std::pair<int, int> player_pos = get_player_pos();
             int player_x = player_pos.first, player_y = player_pos.second;
             bomb_sprite->setpos(player_x+16-BOMB_WIDTH/2, player_y-BOMB_HEIGHT/2);
 
             bomb_bmp->clear();
-            bomb_bmp->blt(HfRect((bomb_sprite->width()-LIGHT_SIZE)/2, (player_y-bomb_sprite->y())/2+LIGHT_SIZE/3, LIGHT_SIZE, LIGHT_SIZE),
-                                 light_bmp, HfRect(0, 0, light_bmp->width(), light_bmp->height()));
+            bomb_bmp->blt_ex(HfRect((bomb_sprite->width()-LIGHT_SIZE)/2, (player_y-bomb_sprite->y())/2+LIGHT_SIZE/3, LIGHT_SIZE, LIGHT_SIZE),
+                                 light_bmp, HfRect(0, 0, light_bmp->width(), light_bmp->height()),
+                                 255, 
+                                 HfPoint(LIGHT_SIZE/2, LIGHT_SIZE/2), light_angle,
+                                 false, false);
 
             bomb_bmp->blt_ex(HfRect(player_x-bomb_sprite->x()+LIGHT_SIZE/2+15, player_y-bomb_sprite->y()-90/2, 90, 90),
                                  mop_bmp, HfRect(0, 92, mop_bmp->width(), mop_bmp->height()-92),
                                  255,
                                  HfPoint(-LIGHT_SIZE/2, 90-30),
-                                 angle, false, false);
+                                 mop_angle, false, false);
 
-            if(angle <= 0)angle_sig = 1;
-            else if(angle >= 180)angle_sig = -1;
+            if(mop_angle <= 0)mop_angle_sig = 1;
+            else if(mop_angle >= 180)mop_angle_sig = -1;
 
-            if(angle <= 30 || angle >= 150)angle += angle_sig*3;
-            else angle += angle_sig*6;
+            if(mop_angle <= 30 || mop_angle >= 150)mop_angle += mop_angle_sig*4;
+            else mop_angle += mop_angle_sig*8;
+            light_angle++;
 
             pshift->second();  //强制低速模式
             Fiber::fiber().yield();
@@ -350,7 +358,6 @@ struct PlayerBomb{
 
         showing = true;
         show_time_left = BOMB_TIME;
-        angle = 0, angle_sig = 1;
         Fiber::fiber()[BOMB_FIBER] = [&](){show_fiber_proc();};
 
     }
@@ -374,6 +381,8 @@ class STAGE1{
     Player player;
     PlayerShoot pshoot;
     PlayerBomb pbomb;
+    int players;
+    int bombs;
 
     void leave(){
         player.destroy();
@@ -388,7 +397,7 @@ public:
 
         scene->key_handlers[std::make_pair(SDLK_ESCAPE, Input::KEY_IS_TRIGGLED)] = [&,this](){leave(); SceneManager::jumpback();};
 
-        player.init(scene);
+        player.init(scene); players = 2;
         scene->key_handlers[std::make_pair(SDLK_UP, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyup();};
         scene->key_handlers[std::make_pair(SDLK_DOWN, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keydown();};
         scene->key_handlers[std::make_pair(SDLK_LEFT, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyleft();};
@@ -402,7 +411,7 @@ public:
         scene->key_handlers[std::make_pair(SDLK_z,Input::KEY_IS_PRESSED)] = [&, this](){pressed_z();};
         scene->key_handlers[std::make_pair(SDLK_z, Input::KEY_IS_UNPRESSED)] = [&, this](){unpressed_z(); };
 
-        pbomb.init(scene);
+        pbomb.init(scene); bombs = 3;
         pbomb.get_player_pos = [&](){return std::make_pair(player.x, player.y);};
         scene->key_handlers[std::make_pair(SDLK_x, Input::KEY_IS_TRIGGLED)] = [&, this](){pbomb.show();};
 

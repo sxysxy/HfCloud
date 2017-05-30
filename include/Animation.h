@@ -11,8 +11,8 @@ HFCLOUD_BEGIN
 class Animation{
     Animation();
 public:
-    int total_frames;           /**< total frames. */
-    int current_frame;          /**< current frame. */
+    int total_frames;           /**< total frames.           */
+    int current_frame;          /**< current frame.          */
     Sprite *sprite;             /**< current sprite to show. */
 
     Animation(int fm);
