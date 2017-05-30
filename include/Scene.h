@@ -7,7 +7,7 @@ HFCLOUD_BEGIN
 
 class Scene{
     Fiber *fiber;                       /**<scene fiber. */
-    bool fading;
+  //  bool fading;
 public:
     int fade_time;
     Module *main_module;                /**<main module of this scene, it can help manage sprites.*/
@@ -25,8 +25,8 @@ public:
 
     Scene();
     virtual ~Scene();
-    void fade_in();
-    void fade_out();
+  //  void fade_in();
+  //  void fade_out();
 }; //
 
 HFCLOUD_END

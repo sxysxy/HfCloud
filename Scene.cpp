@@ -9,7 +9,7 @@ using namespace HfCloud;
 Scene::Scene(){
     main_module = nullptr;
     fade_time = 30;
-    fading = false;
+ //   fading = false;
 }
 Scene::~Scene(){
     delete main_module;
@@ -17,12 +17,11 @@ Scene::~Scene(){
 
 void Scene::start_scene(){
     main_module = new Module(0, 0, Graphics::width, Graphics::height);
-    fading = true;
+   // fading = true;
 }
 void Scene::end_scene(){
     delete main_module;
     main_module = nullptr;
-    fading = false;
 }
 
 void Scene::update_event(){
@@ -80,10 +79,4 @@ void Scene::wait(int d, const std::function<void(int)> &updater){
         updater(i);
         yield_for_wait();
     }
-}
-void Scene::fade_in(){
-
-}
-void Scene::fade_out(){
-
 }

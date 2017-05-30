@@ -48,8 +48,8 @@ public:
     inline int y(){return _y;}            /**< get y */
     inline int width(){return _w;}        /**< get width */
     inline int height(){return _h;}       /**< get height */
-    inline void zoom_width(double rate){_w *= rate;}        /**< zoom width. */
-    inline void zoom_height(double rate){_h *= rate;}       /**< zoom height. */
+    inline void zoom_width(double rate){_w = (int)(_w*rate);}        /**< zoom width. */
+    inline void zoom_height(double rate){_h = (int)(_h*rate);}       /**< zoom height. */
     inline void resize(int w, int h){_w = w, _h = h;}       /***< as its name. */
     inline void set_origin_size(){resize(bitmap->width(), bitmap->height());}     /**< resize it with origin size. */
     void scale_with_bitmap();               /**< scale clip width and height with bitmap, then the Spriate can show the hole bitmap*/

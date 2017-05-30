@@ -48,6 +48,12 @@
     <ClCompile Include="..\static.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\Animation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AnimationFrames.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bitmap.h">
@@ -87,6 +93,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ReferredObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Animation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AnimationFrames.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\STG_Stage1.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

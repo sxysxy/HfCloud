@@ -245,6 +245,12 @@ public:
 
 	}
 
+    //update on 2017.5.30 by sxysxy
+    bool exist(unsigned n) {
+        auto it = _contexts.find(n);
+        return it != _contexts.end();
+    }
+
 	void run(unsigned n) {
 
 #ifdef _WIN32
