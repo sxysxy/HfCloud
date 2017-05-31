@@ -78,7 +78,7 @@ public:
         for(auto &handler : key_handlers){
             int key = handler.first.first;
             int state = handler.first.second;
-            if((state == SDL_KEYDOWN && Input::key_is_pressed(key)) || (state == SDL_KEYUP && !Input::key_is_pressed(key)))
+            if(Input::key_is_state(key, state))
                 handler.second();
             if(disposed)break;
         }
@@ -259,7 +259,7 @@ struct PlayerShoot{
         static int opas[opasn] = { 255, 240, 220, 190, 170, 150, 140, 120, 100 };
         static int popas = 0;
         shoots_sprite->opacity = opas[(popas++)%opasn];
-        shoots_bmp->blt_ex(HfRect(0, 0, 40, 16*27), shoots_map, HfRect(0, 0, 40, 16*27), 255, HfPoint(0, 0), 0, false, popas&1);
+        shoots_bmp->blt_ex(HfRect(0, 0, 40, 16*27), shoots_map, HfRect(0, 0, 40, 16*27), 255, HfPoint(0, 0), 0, false, opasn<4);
 
     }
 };
@@ -298,7 +298,7 @@ struct PlayerBomb{
             bomb_sprite->setz(-100);
         });
 
-        pshift = scene->key_handlers.find(std::make_pair(SDLK_LSHIFT, SDL_KEYDOWN));  //找到按下shift的.
+        pshift = scene->key_handlers.find(std::make_pair(SDLK_LSHIFT, Input::KEY_IS_PRESSED));  //找到按下shift的.
 
         showing = false;
         disposed = false;
@@ -386,25 +386,25 @@ public:
         SceneManager::call(scene = new SceneStage1);
         scene->logic_updater = [&,this](){update();};
 
-        scene->key_handlers[std::make_pair(SDLK_ESCAPE, SDL_KEYDOWN)] = [&,this](){leave(); SceneManager::jumpback();};
+        scene->key_handlers[std::make_pair(SDLK_ESCAPE, Input::kEY_IS_TRIGGLED)] = [&,this](){leave(); SceneManager::jumpback();};
 
         player.init(scene);
-        scene->key_handlers[std::make_pair(SDLK_UP, SDL_KEYDOWN)] = [&,this](){player.on_keyup();};
-        scene->key_handlers[std::make_pair(SDLK_DOWN, SDL_KEYDOWN)] = [&,this](){player.on_keydown();};
-        scene->key_handlers[std::make_pair(SDLK_LEFT, SDL_KEYDOWN)] = [&,this](){player.on_keyleft();};
-        scene->key_handlers[std::make_pair(SDLK_RIGHT, SDL_KEYDOWN)] = [&,this](){player.on_keyright();};
-        scene->key_handlers[std::make_pair(SDLK_LSHIFT, SDL_KEYDOWN)] = [&,this](){player.on_keyshift(false);};
-        scene->key_handlers[std::make_pair(SDLK_LSHIFT, SDL_KEYUP)] = [&,this](){player.on_keyshift(true);};
+        scene->key_handlers[std::make_pair(SDLK_UP, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyup();};
+        scene->key_handlers[std::make_pair(SDLK_DOWN, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keydown();};
+        scene->key_handlers[std::make_pair(SDLK_LEFT, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyleft();};
+        scene->key_handlers[std::make_pair(SDLK_RIGHT, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyright();};
+        scene->key_handlers[std::make_pair(SDLK_LSHIFT, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyshift(false);};
+        scene->key_handlers[std::make_pair(SDLK_LSHIFT, Input::KEY_IS_UNPRESSED)] = [&,this](){player.on_keyshift(true);};
 
         pshoot.init(scene);
         pshoot.get_player_pos = [&](){return std::make_pair(player.x, player.y);};
 
-        scene->key_handlers[std::make_pair(SDLK_z, SDL_KEYDOWN)] = [&, this](){triggle_z();};
-        scene->key_handlers[std::make_pair(SDLK_z, SDL_KEYUP)] = [&, this](){untriggle_z(); };
+        scene->key_handlers[std::make_pair(SDLK_z,Input::KEY_IS_PRESSED)] = [&, this](){pressed_z();};
+        scene->key_handlers[std::make_pair(SDLK_z, Input::KEY_IS_UNPRESSED)] = [&, this](){unpressed_z(); };
 
         pbomb.init(scene);
         pbomb.get_player_pos = [&](){return std::make_pair(player.x, player.y);};
-        scene->key_handlers[std::make_pair(SDLK_x, SDL_KEYDOWN)] = [&, this](){pbomb.show();};
+        scene->key_handlers[std::make_pair(SDLK_x, Input::kEY_IS_TRIGGLED)] = [&, this](){pbomb.show();};
 
         SceneManager::scene->update_wait(20);
     }
@@ -413,10 +413,10 @@ public:
         pshoot.update();
         pbomb.update();
     }
-    void triggle_z(){
+    void pressed_z(){
         pshoot.showing = true;
     }
-    void untriggle_z(){
+    void unpressed_z(){
         pshoot.showing = false;
     }
 }stage1;

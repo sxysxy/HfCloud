@@ -187,13 +187,8 @@ public:
 	}
 
 	Fiber(Fiber &&fiber) {
-
-		for (auto &i : fiber._contexts) {
-
-			for (auto &i : fiber._contexts)
-				_contexts.insert(std::make_pair(i.first, Context{ this, nullptr, std::move(i.second.functor) }));
-
-		}
+        for (auto &i : fiber._contexts)
+            _contexts.insert(std::make_pair(i.first, Context{ this, nullptr, std::move(i.second.functor) }));
 
 	}
 
@@ -345,9 +340,10 @@ public:
 		if (it == _contexts.end())
 			throw std::runtime_error("Fiber proc does not exist.");
 
+#ifndef __linux__
+
 		ProcHandle handle = it->second.proc;
 
-#ifndef __linux__
 		if (handle)
 			_dead.insert(handle);
 		else
