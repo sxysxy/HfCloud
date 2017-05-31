@@ -16,7 +16,7 @@ Do not depend on too much things.
 Still protable...
 
 ## Construction:
-![](https://github.com/sxysxy/HfCloud/raw/develop/construction.png)
+![](https://github.com/sxysxy/HfCloud/raw/master/construction.png)
 
 # How to start:
 ## on windows:
