@@ -37,7 +37,7 @@ void Scene::update(){
 }
 
 void Scene::main_proc(){
-    if(!this)return;
+    if(!SceneManager::scene)return;
     fiber = &Fiber::fiber();
 
     (*fiber)[1] = [&](){

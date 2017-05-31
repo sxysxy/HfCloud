@@ -21,7 +21,7 @@ public:
     enum{
         KEY_IS_PRESSED,
         KEY_IS_UNPRESSED,
-        kEY_IS_TRIGGLED,
+        KEY_IS_TRIGGLED,
         KEY_IS_RELEASED,
         KEY_STATE_END
     };

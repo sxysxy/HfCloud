@@ -386,7 +386,7 @@ public:
         SceneManager::call(scene = new SceneStage1);
         scene->logic_updater = [&,this](){update();};
 
-        scene->key_handlers[std::make_pair(SDLK_ESCAPE, Input::kEY_IS_TRIGGLED)] = [&,this](){leave(); SceneManager::jumpback();};
+        scene->key_handlers[std::make_pair(SDLK_ESCAPE, Input::KEY_IS_TRIGGLED)] = [&,this](){leave(); SceneManager::jumpback();};
 
         player.init(scene);
         scene->key_handlers[std::make_pair(SDLK_UP, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyup();};
@@ -404,7 +404,7 @@ public:
 
         pbomb.init(scene);
         pbomb.get_player_pos = [&](){return std::make_pair(player.x, player.y);};
-        scene->key_handlers[std::make_pair(SDLK_x, Input::kEY_IS_TRIGGLED)] = [&, this](){pbomb.show();};
+        scene->key_handlers[std::make_pair(SDLK_x, Input::KEY_IS_TRIGGLED)] = [&, this](){pbomb.show();};
 
         SceneManager::scene->update_wait(20);
     }
