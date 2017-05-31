@@ -39,8 +39,8 @@ void SceneManager::call(Scene *scene){
     SceneManager::scene = scene;
 }
 void SceneManager::run(Scene *scene){
-    SceneManager::jumpto(scene);
-    while(SceneManager::scene)SceneManager::scene->main_proc();
+    SceneManager::jumpto(scene);    //First, jump to start scene
+    while(SceneManager::scene)SceneManager::scene->main_proc();    //Then run the main_proc of current scene.
     SceneManager::clear();
 }
 void SceneManager::exit(){

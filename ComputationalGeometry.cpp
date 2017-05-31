@@ -2,7 +2,7 @@
 
 HFCLOUD_BEGIN
 
-double CGPoint::length(){
+double CGPoint::length()const{
     return sqrt(x*x+y*y);
 }
 CGPoint& CGPoint::unit(){
@@ -26,7 +26,7 @@ CGPoint& CGPoint::setlength(double len){
         x *= len/olen, y *= len/olen;
     return *this;
 }
-double CGPoint::angle(){
+double CGPoint::angle()const{
     double ang = atan2(y, x);
     if(CGdcmp(ang) < 0)ang += CG_2PI;
     return ang;
@@ -135,6 +135,13 @@ double CGdist(const CGPoint &p, const CGLine &l){
 }
 bool CGparallel(const CGLine &l1, const CGLine l2){
     return CGunit(l1.b) == CGunit(l2.b) || CGunit(l1.b) == -CGunit(l2.b);
+}
+double CGarea(const CGPolygon &poly){
+    double area = 0;
+    int n = poly.vertexs();
+    const std::vector<CGPoint> &p = poly.points;
+    for (int i = 1; i < n - 1; i++)area += CGcross(p[i] - p[0], p[i + 1] - p[0]);
+    return area;
 }
 
 HFCLOUD_END

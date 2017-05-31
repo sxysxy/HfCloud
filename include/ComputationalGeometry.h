@@ -27,8 +27,8 @@ struct CGPoint{
         x = len*(anticlock?cos(angle):cos(CG_2PI-angle));
         y = len*(anticlock?sin(angle):sin(CG_2PI-angle));
     }
-    double length();                        /**< get the lenght of (0,0)->(x,y). */
-    double angle();                         /**< get the point's angle (0,0)->(x,y), return-value is between [0, 2PI).  */
+    double length()const;                   /**< get the lenght of (0,0)->(x,y). */
+    double angle()const;                    /**< get the point's angle (0,0)->(x,y), return-value is between [0, 2PI).  */
     CGPoint& unit();                        /**< get the unit vector of (0,0)->(x,y). (modify itself)                   */
     CGPoint& rotate(double angle);          /**< rotate the vector of (0,0)->(x,y) with a angle, anticlock.             */
     CGPoint& setlength(double len);         /**< reset the length of the vector(0. 0)->(x, y), when its length > 0.     */
@@ -72,5 +72,21 @@ struct CGLine{
 
 double CGdist(const CGPoint &p, const CGLine &l);   /**< the dist from point p to line l.   */
 bool CGparallel(const CGLine &l1, const CGLine l2); /**< judge that l1 // l2.               */
+
+struct CGRect{
+    double x, y, w, h;
+};
+
+struct CGPolygon{
+    std::vector<CGPoint> points;
+    CGPolygon(CGPoint *ps, int n){
+        for(int i = 0; i < n; i++)points.push_back(ps[i]);
+    };
+    CGPolygon(const std::vector<CGPoint> &ps){
+        points = ps;
+    }
+    int vertexs()const{return (int)points.size();}
+};
+double CGarea(const CGPolygon &poly);                /**< calc a polygon's area.           */
 
 HFCLOUD_END

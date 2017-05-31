@@ -73,7 +73,7 @@ void Scene::update_wait(int d, const std::function<void(int)> &updater){
     }
 }
 void Scene::yield_for_wait(){
-    fiber->yield();
+    fiber->yield();  //after yield it runs Graphics::update() and wait for 1 frame.
 }
 void Scene::wait(int d){
     HFASSERT(d >= 0, "Wait time should >= 0")
