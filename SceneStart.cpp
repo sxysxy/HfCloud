@@ -58,15 +58,11 @@ void SceneStart::update(){
     };
     updater(20*t_data.cursor_pos);
     //update curosr
-    if(Input::key_is_pressed(SDLK_UP) || Input::key_is_pressed(SDLK_DOWN)){
+    if(Input::key_is_triggled(SDLK_UP) || Input::key_is_triggled(SDLK_DOWN)){
         t_data.cursor_pos ^= 1;
-        wait(20, [&](int d){
-            Graphics::clear();
-            updater(t_data.cursor_pos?d:19-d);
-        });
     }
 
-    if(Input::key_is_pressed(SDLK_RETURN) || Input::key_is_pressed(SDLK_z)){ //return / z
+    if(Input::key_is_triggled(SDLK_RETURN) || Input::key_is_triggled(SDLK_z)){ //return / z
         switch(t_data.cursor_pos){
         case 0:
             stage1.start();   //new game

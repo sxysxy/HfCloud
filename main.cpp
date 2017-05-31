@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Graphics.h"
 #include "Fiber.h"
+#include "Input.h"
 
 using namespace HfCloud;
 const int WINDOW_WIDTH = 640; /**<The width of the game window*/
@@ -61,5 +62,6 @@ int main(int argc, char *argv[]){
 
     IMG_Quit();
     SDL_Quit();
+    Input::Input_Quit();
     return 0;
 }

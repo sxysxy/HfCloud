@@ -31,5 +31,7 @@ std::vector<Scene *> del_scenes;
 
 //Input
 #include "Input.h"
-Uint8 *Input::state_table = (Uint8 *)SDL_GetKeyboardState(NULL);
+int Input::table_size;
+Uint8 *Input::state_table = (Uint8 *)SDL_GetKeyboardState(&Input::table_size);
+Uint8 *Input::state_last = (Uint8 *)malloc(Input::table_size*sizeof(Uint8));
 
