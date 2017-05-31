@@ -16,7 +16,7 @@ Bitmap::Bitmap(int w, int h){
 }
 Bitmap::Bitmap(const std::string &fn){
     texture = IMG_LoadTexture(Graphics::render, fn.c_str());
-    HFASSERT_WITH_SDLERROR(texture != nullptr)
+    HFASSERT(texture != nullptr, IMG_GetError());
 
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     SDL_QueryTexture(texture, NULL, NULL, &_w, &_h);
@@ -96,3 +96,10 @@ void Bitmap::blt_ex(const HfRect &dest, const Bitmap *bmp, const HfRect &src, in
 #undef _SET_TARGET
 #undef _SET_COLOR
 #undef _RESET_TARGET
+
+Bitmap::Bitmap(SDL_Texture *tex){
+    texture = tex;
+    HFASSERT(texture != nullptr, "Create a Bitmap fron a texture while the texture is NULL")
+    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+    SDL_QueryTexture(texture, NULL, NULL, &_w, &_h);
+}

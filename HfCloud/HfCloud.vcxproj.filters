@@ -57,6 +57,9 @@
     <ClCompile Include="..\ComputationalGeometry.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\Font.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bitmap.h">
@@ -108,6 +111,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ComputationalGeometry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Font.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

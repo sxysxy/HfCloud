@@ -37,6 +37,8 @@ int main(int argc, char *argv[]){
     ApplyConfig(info);
 
     SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+
     info.window = SDL_CreateWindow(info.title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                     WINDOW_WIDTH, WINDOW_HEIGHT,
                                     SDL_WINDOW_SHOWN);
@@ -61,6 +63,7 @@ int main(int argc, char *argv[]){
         SDL_DestroyWindow(Graphics::window);
 
     IMG_Quit();
+    TTF_Quit();
     SDL_Quit();
     Input::Input_Quit();
     return 0;

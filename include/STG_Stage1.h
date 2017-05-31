@@ -1,4 +1,5 @@
 #include "HfCloud.h"
+#include "Font.h"
 #include <unordered_map>
 using namespace HfCloud;
 
@@ -6,19 +7,31 @@ struct FPS_Counter{
     long long last;
     long long now;
     long long feq;
-    const char *title;
-    char buf[200];
+    char buf[100];
     int count;
+    Font font;
+    Sprite *fps_sprite;
+    static const int ADVISED_FPS = 60;
     void start(){
         feq = SDL_GetPerformanceFrequency();
         last = SDL_GetPerformanceCounter();
         count = 0;
+        font.reload(u8"SIMYOU.TTF", 16);
+        fps_sprite = new Sprite(new Bitmap(1, 1));
+        fps_sprite->setpos(330, 400);
     }
     void addcnt(){
-        if(++count == 60){
+        if(++count == ADVISED_FPS){
+            fps_sprite->bitmap->dispose();
+            delete fps_sprite->bitmap;
+
             now = SDL_GetPerformanceCounter();
-            double sec = 1.0*(now-last)/feq;
-            printf("FPS : %.2lf\n", 60.0/sec);
+            double sec = 1.0*(now - last) / feq;
+            sprintf(buf, "FPS : %.2lf", ADVISED_FPS / sec);
+
+            Bitmap *bmp = font.render_solid_text(buf, RGBA(0, 0xff, 0, 0xff));
+            fps_sprite->set_bitmap(bmp);
+
             last = SDL_GetPerformanceCounter();
             count = 0;
         }
@@ -46,6 +59,7 @@ public:
         battle_module = new Module(25, 25, 400, 430);
 
         fps.start();
+        main_module->manage(fps.fps_sprite);
 
         disposed = false;
     }
@@ -259,11 +273,12 @@ struct PlayerShoot{
         int x = pos.first-(40-32)/2, y = pos.second-27*16;
         shoots_sprite->setpos(x, y);
 
+        //子弹透明度变化和流动效果。
         static const int opasn = 9; //opacity chaging
         static int opas[opasn] = { 255, 240, 220, 190, 170, 150, 140, 120, 100 };
         static int popas = 0;
         shoots_sprite->opacity = opas[(popas++)%opasn];
-        shoots_bmp->blt_ex(HfRect(0, 0, 40, 16*27), shoots_map, HfRect(0, 0, 40, 16*27), 255, HfPoint(0, 0), 0, false, opasn<4);
+        shoots_bmp->blt_ex(HfRect(0, 0, 40, 16*27), shoots_map, HfRect(0, 0, 40, 16*27), 255, HfPoint(0, 0), 0, false, (popas%opasn)*12<54);
 
     }
 };
@@ -316,8 +331,8 @@ struct PlayerBomb{
         delete bomb_bmp;
         bomb_sprite->dispose();
         delete bomb_sprite;
-        if(Fiber::fiber().exist(BOMB_FIBER) && !Fiber::fiber().isDead(BOMB_FIBER))
-            Fiber::fiber().kill(BOMB_FIBER);
+        if(Fiber::fiber().exist(BOMB_FIBER))
+            Fiber::fiber().destroy(BOMB_FIBER);
 
         disposed = true;
     }
@@ -332,11 +347,11 @@ struct PlayerBomb{
             bomb_bmp->clear();
             bomb_bmp->blt_ex(HfRect((bomb_sprite->width()-LIGHT_SIZE)/2, (player_y-bomb_sprite->y())/2+LIGHT_SIZE/3, LIGHT_SIZE, LIGHT_SIZE),
                                  light_bmp, HfRect(0, 0, light_bmp->width(), light_bmp->height()),
-                                 255, 
+                                 255,
                                  HfPoint(LIGHT_SIZE/2, LIGHT_SIZE/2), light_angle,
                                  false, false);
 
-            bomb_bmp->blt_ex(HfRect(player_x-bomb_sprite->x()+LIGHT_SIZE/2+15, player_y-bomb_sprite->y()-90/2, 90, 90),
+            bomb_bmp->blt_ex(HfRect(player_x-bomb_sprite->x()+LIGHT_SIZE/2+18, player_y-bomb_sprite->y()-90/2, 90, 90),
                                  mop_bmp, HfRect(0, 92, mop_bmp->width(), mop_bmp->height()-92),
                                  255,
                                  HfPoint(-LIGHT_SIZE/2, 90-30),
@@ -370,7 +385,7 @@ struct PlayerBomb{
             else{       //动画显示完毕
                 bomb_bmp->clear();
                 showing = false;
-                Fiber::fiber().kill(BOMB_FIBER); //顺便干掉Fiber
+                Fiber::fiber().destroy(BOMB_FIBER); //顺便干掉Fiber
             }
         }
 
@@ -415,7 +430,6 @@ public:
         pbomb.get_player_pos = [&](){return std::make_pair(player.x, player.y);};
         scene->key_handlers[std::make_pair(SDLK_x, Input::KEY_IS_TRIGGLED)] = [&, this](){pbomb.show();};
 
-        SceneManager::scene->update_wait(20);
     }
     void update(){
         player.update();

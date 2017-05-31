@@ -33,6 +33,12 @@ inline unsigned RGBA(unsigned r, unsigned g, unsigned b, unsigned a){
     return (a<<24) | (b<<16) | (g<<8) | r;
     #endif
 }
+struct HfColor : public SDL_Color{
+    HfColor(HfCloud::Color color = 0){
+        r = color.rgba.r, g = color.rgba.g, b = color.rgba.b, a = color.rgba.a;
+    }
+};
+
 class Bitmap{
     int _w;     /**< width, private, only provide reading interface.  */
     int _h;     /**< height, private, only provide reading interface. */
@@ -56,6 +62,8 @@ public:
     void blt(const HfRect &dest, const Bitmap *bmp, const HfRect &src);  /**<blt from bmp's src_rect to this bitmap's dest_rect, */
     void blt_ex(const HfRect &dest, const Bitmap *bmp, const HfRect &src,
                     int opacity, const HfPoint &rcenter, double angle, bool hmirror, bool vmirror);
+
+    Bitmap(SDL_Texture *tex);   /**<not for user. */
 };
 HFCLOUD_END
 #endif // _BITMAP_H

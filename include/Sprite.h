@@ -36,7 +36,7 @@ public:
     Sprite(Bitmap *bmp);                                    /**< construct a Sprite from a Bitmap               */
     void dispose();                                         /**< release the sources, then it can not be rendered.
                                                                NOTICE: it does not release bitmap it refrences. */
-    void set_bitmap(Bitmap *bmp);                           /**<set the bitmap of this sprite.                  */
+    void set_bitmap(Bitmap *bmp);                           /**<s et the bitmap of this sprite.                 */
     void calc_rects();                                      /**< re_calc the rects                              */
 
     virtual void update();                                  /**< update it to show.                             */

@@ -352,6 +352,26 @@ public:
 		_contexts.erase(it);
 	}
 
+    void destroy(unsigned n){ //destroy all noete about Fiber n and release sources;
+
+        HFASSERT(!isRunning(n), "Can not destroy a running fiber")
+
+        auto it = _contexts.find(n);
+
+        ProcHandle &handle = it->second.proc;
+        auto itd = _dead.find(handle);
+        if(itd != _dead.end())_dead.erase(itd);
+
+        DeleteFiber(handle);
+        handle = nullptr;
+
+#ifdef __linux__
+        free(it->second.pstack);
+        it->second.pstack = nullptr;
+#endif
+        _contexts.erase(it);
+    }
+
 	static Fiber &fiber() {
      	 _fibers_mutex.lock();
 

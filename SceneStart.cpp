@@ -65,6 +65,7 @@ void SceneStart::update(){
         switch(t_data.cursor_pos){
         case 0:
             stage1.start();   //new game
+            update_wait(20);
         break;
         case 1:
             SceneManager::exit();  //exit

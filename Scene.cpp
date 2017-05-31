@@ -49,14 +49,15 @@ void Scene::main_proc(){
     };
     start_scene();
     while(this == SceneManager::scene){
-        Input::update();                    //clear the input buffer
+        Input::update();
         fiber->resume(1);
         Graphics::update();
     }
     end_scene();
-    fiber->kill(1);
+    fiber->destroy(1);
 }
 void Scene::update_for_wait(){
+    Input::update();
     update_event();
     Graphics::update();
 }
