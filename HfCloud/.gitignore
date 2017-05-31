@@ -1,2 +1,5 @@
 /Debug/*.*
-/x64/Debug/*.*
+/Release/*.*
+/sources
+/x64
+/HfDebug_log.txt

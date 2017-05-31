@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-DHFDEBUG" />
 				</Compiler>
 				<ExtraCommands>
 					<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
@@ -24,7 +25,7 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-O3" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -33,6 +34,21 @@
 					<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 				</ExtraCommands>
 			</Target>
+			<Target title="Debug-Linux">
+				<Option output="bin/Debug/HfCloud" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DHFDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL2" />
+					<Add library="SDL2_image" />
+				</Linker>
+			</Target>
 			<Target title="Release-Linux">
 				<Option output="bin/Release/HfCloud" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
@@ -40,8 +56,7 @@
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="1" />
 				<Compiler>
-					<Add option="-O2" />
-					<Add option="-Wpedantic" />
+					<Add option="-O3" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -52,7 +67,9 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add directory="$(#sdl2.include)/SDL2" />
+			<Add directory="./include" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -65,27 +82,37 @@
 			<Add library="dxguid" />
 			<Add directory="$(#sdl2.lib)" />
 		</Linker>
+		<Unit filename="Animation.cpp" />
+		<Unit filename="AnimationFrames.cpp" />
 		<Unit filename="Bitmap.cpp" />
-		<Unit filename="Bitmap.h" />
+		<Unit filename="ComputationalGeometry.cpp" />
 		<Unit filename="Graphics.cpp" />
-		<Unit filename="Graphics.h" />
-		<Unit filename="HfCloud.h" />
 		<Unit filename="Input.cpp" />
-		<Unit filename="Input.h" />
 		<Unit filename="Module.cpp" />
-		<Unit filename="Module.h" />
-		<Unit filename="ParamZ.h" />
 		<Unit filename="Scene.cpp" />
-		<Unit filename="Scene.h" />
 		<Unit filename="SceneManager.cpp" />
-		<Unit filename="SceneManager.h" />
 		<Unit filename="SceneStart.cpp" />
-		<Unit filename="SceneStart.h" />
 		<Unit filename="Sprite.cpp" />
-		<Unit filename="Sprite.h" />
+		<Unit filename="include/Animation.h" />
+		<Unit filename="include/AnimationFrames.h" />
+		<Unit filename="include/Bitmap.h" />
+		<Unit filename="include/ComputationalGeometry.h" />
+		<Unit filename="include/Fiber.h" />
+		<Unit filename="include/Graphics.h" />
+		<Unit filename="include/HfCloud.h" />
+		<Unit filename="include/Input.h" />
+		<Unit filename="include/Module.h" />
+		<Unit filename="include/ParamZ.h" />
+		<Unit filename="include/ReferredObject.h" />
+		<Unit filename="include/STG_Stage1.h" />
+		<Unit filename="include/Scene.h" />
+		<Unit filename="include/SceneManager.h" />
+		<Unit filename="include/SceneStart.h" />
+		<Unit filename="include/Sprite.h" />
+		<Unit filename="include/stdinc.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="static.cpp" />
 		<Unit filename="stdinc.cpp" />
-		<Unit filename="stdinc.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

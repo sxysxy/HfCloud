@@ -45,39 +45,69 @@
     <ClCompile Include="..\stdinc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\static.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Animation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AnimationFrames.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ComputationalGeometry.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Bitmap.h">
+    <ClInclude Include="..\include\Bitmap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Graphics.h">
+    <ClInclude Include="..\include\Fiber.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\HfCloud.h">
+    <ClInclude Include="..\include\Graphics.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Input.h">
+    <ClInclude Include="..\include\HfCloud.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Module.h">
+    <ClInclude Include="..\include\Input.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\ParamZ.h">
+    <ClInclude Include="..\include\Module.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Scene.h">
+    <ClInclude Include="..\include\ParamZ.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\SceneManager.h">
+    <ClInclude Include="..\include\Scene.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\SceneStart.h">
+    <ClInclude Include="..\include\SceneManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sprite.h">
+    <ClInclude Include="..\include\SceneStart.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\stdinc.h">
+    <ClInclude Include="..\include\Sprite.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\stdinc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ReferredObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Animation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AnimationFrames.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\STG_Stage1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ComputationalGeometry.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

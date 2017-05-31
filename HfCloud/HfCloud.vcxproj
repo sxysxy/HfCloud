@@ -72,19 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\..\SDL2\include;</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(SolutionDir)\..\SDL2\lib\x86</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)include;$(SolutionDir)SDL2\include;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(SolutionDir)SDL2\lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SDL2\include;$(SolutionDir)\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)SDL2\lib\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\..\SDL2\include;</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(SolutionDir)\..\SDL2\lib\x86</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)include;$(SolutionDir)SDL2\include;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(SolutionDir)SDL2\lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SDL2\include;$(SolutionDir)\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)SDL2\lib\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,7 +96,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;__WINDOWS__</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,7 +122,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;__WINDOWS__</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,7 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Animation.cpp" />
+    <ClCompile Include="..\AnimationFrames.cpp" />
     <ClCompile Include="..\Bitmap.cpp" />
+    <ClCompile Include="..\ComputationalGeometry.cpp" />
     <ClCompile Include="..\Graphics.cpp" />
     <ClCompile Include="..\Input.cpp" />
     <ClCompile Include="..\main.cpp" />
@@ -152,20 +159,27 @@
     <ClCompile Include="..\SceneManager.cpp" />
     <ClCompile Include="..\SceneStart.cpp" />
     <ClCompile Include="..\Sprite.cpp" />
+    <ClCompile Include="..\static.cpp" />
     <ClCompile Include="..\stdinc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Bitmap.h" />
-    <ClInclude Include="..\Graphics.h" />
-    <ClInclude Include="..\HfCloud.h" />
-    <ClInclude Include="..\Input.h" />
-    <ClInclude Include="..\Module.h" />
-    <ClInclude Include="..\ParamZ.h" />
-    <ClInclude Include="..\Scene.h" />
-    <ClInclude Include="..\SceneManager.h" />
-    <ClInclude Include="..\SceneStart.h" />
-    <ClInclude Include="..\Sprite.h" />
-    <ClInclude Include="..\stdinc.h" />
+    <ClInclude Include="..\include\Animation.h" />
+    <ClInclude Include="..\include\AnimationFrames.h" />
+    <ClInclude Include="..\include\Bitmap.h" />
+    <ClInclude Include="..\include\ComputationalGeometry.h" />
+    <ClInclude Include="..\include\Fiber.h" />
+    <ClInclude Include="..\include\Graphics.h" />
+    <ClInclude Include="..\include\HfCloud.h" />
+    <ClInclude Include="..\include\Input.h" />
+    <ClInclude Include="..\include\Module.h" />
+    <ClInclude Include="..\include\ParamZ.h" />
+    <ClInclude Include="..\include\ReferredObject.h" />
+    <ClInclude Include="..\include\Scene.h" />
+    <ClInclude Include="..\include\SceneManager.h" />
+    <ClInclude Include="..\include\SceneStart.h" />
+    <ClInclude Include="..\include\Sprite.h" />
+    <ClInclude Include="..\include\stdinc.h" />
+    <ClInclude Include="..\include\STG_Stage1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
