@@ -60,6 +60,8 @@ namespace HfCloud{extern std::ofstream HfDebug_log;}
     if(!(x)){HfCloud::HfDebug_log << "Assert Failed" << "   At:" << __FILE__ << " line: " <<__LINE__ << "\n    Error: " << info << '\n'; HfCloud::HfDebug_log.flush();}
 
 #define HFASSERT_WITH_SDLERROR(x) HFASSERT(x, SDL_GetError())
+#define HFASSERT_WITH_ABORT(x, info) \
+    if(!(x)){HfCloud::HfDebug_log << "Assert Failed, Fatal Error" << "   At:" << __FILE__ << " line: " <<__LINE__ << "\n    Error: " << info << '\n'; HfCloud::HfDebug_log.flush(); abort();}
 
 #else
 

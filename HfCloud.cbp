@@ -47,6 +47,7 @@
 				<Linker>
 					<Add library="SDL2" />
 					<Add library="SDL2_image" />
+					<Add library="SDL2_ttf" />
 				</Linker>
 			</Target>
 			<Target title="Release-Linux">
@@ -62,6 +63,7 @@
 					<Add option="-s" />
 					<Add library="SDL2" />
 					<Add library="SDL2_image" />
+					<Add library="SDL2_ttf" />
 				</Linker>
 			</Target>
 		</Build>
@@ -83,7 +85,6 @@
 			<Add library="SDL2_ttf" />
 			<Add library="freetype" />
 			<Add library="SDL2_ttf.dll" />
-			<Add library="SDL2_test" />
 			<Add directory="$(#sdl2.lib)" />
 		</Linker>
 		<Unit filename="Animation.cpp" />

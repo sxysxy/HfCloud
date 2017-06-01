@@ -39,7 +39,6 @@ void Scene::update(){
 void Scene::main_proc(){
     if(!SceneManager::scene)return;
     fiber = &Fiber::fiber();
-
     (*fiber)[1] = [&](){
         while(true){
             Graphics::clear();              //clear the Graphics in order to redraw
@@ -47,6 +46,9 @@ void Scene::main_proc(){
             yield_for_wait();
         }
     };
+#ifdef __LINUX__
+    delay_short();
+#endif
     start_scene();
     while(this == SceneManager::scene){
         Input::update();
@@ -55,6 +57,9 @@ void Scene::main_proc(){
     }
     end_scene();
     fiber->destroy(1);
+#ifdef __LINUX__
+    delay_short();
+#endif
 }
 void Scene::update_for_wait(){
     Input::update();
@@ -85,4 +90,11 @@ void Scene::wait(int d, const std::function<void(int)> &updater){
         updater(i);
         yield_for_wait();
     }
+}
+void Scene::delay(int dms){
+    HFASSERT(dms >= 0, "delay time should >= 0")
+    SDL_Delay(dms);
+}
+void Scene::delay_short(){
+    delay(100);
 }

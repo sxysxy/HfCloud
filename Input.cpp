@@ -27,7 +27,7 @@ bool Input::key_is_state(int key_sym, int state){
         &(Input::key_is_triggled),
         &(Input::key_is_released)
     };
-    HFASSERT(state >= 0 && state < Input::KEY_STATE_END, "key state is invalid")
+    HFASSERT_WITH_ABORT(state >= 0 && state < Input::KEY_STATE_END, "key state is invalid")
     return call_table[state](key_sym);
 }
 

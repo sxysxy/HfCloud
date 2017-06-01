@@ -22,7 +22,8 @@ public:
     void yield_for_wait();              /**<return from fiber to wait a frame.                  */
     void wait(int d);                   /**<yield_for_wait d frame.                             */
     void wait(int d, const std::function<void(int)> &updater); /**<wait with a lambda.          */
-
+    void delay(int dms);                /**<delay d ms. (using SDL_Delay. it can provent some magic problem on linux... .  */
+    void delay_short();                 /**<delay a short time.                                                            */
     Scene();
     virtual ~Scene();
   //  void fade_in();

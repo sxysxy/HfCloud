@@ -40,6 +40,7 @@ void Font::set_style(int nstyle){
 }
 
 Bitmap *Font::render_solid_text(const std::string &text, HfCloud::Color color){
+    HFASSERT_WITH_ABORT(_font != nullptr, "Invalid Font")
     SDL_Surface *s = TTF_RenderText_Solid(_font, text.c_str(), HfColor(color));
     HFASSERT(s != nullptr, TTF_GetError());
     SDL_Texture *tex = SDL_CreateTextureFromSurface(Graphics::render, s);
