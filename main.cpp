@@ -33,6 +33,12 @@ void ApplyConfig(Info &info){
 }
 extern Fiber fiber;
 int main(int argc, char *argv[]){
+#ifdef MEM_LEAK_CHECK
+    init_memleak_check();
+#endif
+    //_CrtSetBreakAlloc(363);
+
+
     Info info;
     ApplyConfig(info);
 
@@ -55,7 +61,7 @@ int main(int argc, char *argv[]){
     Graphics::height = WINDOW_HEIGHT;
     Graphics::check_vsync();
 
-    fiber[0] = [](){SceneManager::run(new SceneStart);};
+    fiber[0] = []{SceneManager::run(new SceneStart);};
     fiber.run(0);
 
     if(Graphics::render)
@@ -67,5 +73,6 @@ int main(int argc, char *argv[]){
     TTF_Quit();
     SDL_Quit();
     Input::Input_Quit();
+
     return 0;
 }

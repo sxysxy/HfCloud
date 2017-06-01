@@ -14,7 +14,7 @@ public:
     virtual void start_scene();         /**<when start the scene.                                       */
     virtual void end_scene();           /**<when end.                                                   */
     virtual void main_proc();           /**<main proc. why don't use 'main' as name? because of 'SDL_main' ...*/
-    virtual void update_event();        /**<events update.                                                    */
+    void update_event();                /**<events update.                                                    */
     virtual void update();              /**<update proc. It should call Graphics::update after it.            */
     void update_for_wait();             /**<update only for wait a frame.                                     */
     void update_wait(int d);            /**<update_wait for d frames.                                                      */
@@ -24,6 +24,7 @@ public:
     void wait(int d, const std::function<void(int)> &updater); /**<wait with a lambda.          */
     void delay(int dms);                /**<delay d ms. (using SDL_Delay. it can provent some magic problem on linux... .  */
     void delay_short();                 /**<delay a short time.                                                            */
+    bool running();
     Scene();
     virtual ~Scene();
   //  void fade_in();

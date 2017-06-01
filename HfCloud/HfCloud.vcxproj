@@ -158,6 +158,7 @@
     <ClCompile Include="..\Module.cpp" />
     <ClCompile Include="..\Scene.cpp" />
     <ClCompile Include="..\SceneManager.cpp" />
+    <ClCompile Include="..\SceneMVC.cpp" />
     <ClCompile Include="..\SceneStart.cpp" />
     <ClCompile Include="..\Sprite.cpp" />
     <ClCompile Include="..\static.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="..\include\ReferredObject.h" />
     <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\SceneManager.h" />
+    <ClInclude Include="..\include\SceneMVC.h" />
     <ClInclude Include="..\include\SceneStart.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\stdinc.h" />

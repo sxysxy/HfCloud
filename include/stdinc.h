@@ -28,6 +28,7 @@ namespace HfCloud{}
 #define HFCLOUD_END }
 
 namespace HfCloud{
+
 struct HfRect : public SDL_Rect{
     HfRect(int _x = 0, int _y = 0, int _w = 0, int _h = 0){
         x = _x, y = _y, w = _w, h = _h;
@@ -38,6 +39,7 @@ struct HfPoint : public SDL_Point{
         x = _x, y = _y;
     }
 };
+
 }
 
 #ifdef _MSC_VER
@@ -48,7 +50,10 @@ struct HfPoint : public SDL_Point{
 
 #if defined(_MSC_VER) && !defined(HFDEBUG)
 #ifdef _DEBUG
-#define HFDEBUG
+#define HFDEBUG 
+#define MEM_LEAK_CHECK
+#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
+void init_memleak_check();
 #endif
 #endif
 
@@ -70,6 +75,6 @@ namespace HfCloud{extern std::ofstream HfDebug_log;}
 
 #endif
 
-
+void HfDummy();     /**< An empty function you can use as std::function<void(void)>. */ 
 
 #endif // _STD_INC_FILES

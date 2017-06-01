@@ -23,10 +23,20 @@ char *SDLCALL SDL_strchr(const char *s, int c){
     return strchr(s, c);
 }
 size_t SDLCALL SDL_strlcpy(char *dst, const char *src, size_t maxlen){
-    for(int i = 0; i < maxlen-1 && src[i]; i++)
+    for(unsigned i = 0; i < maxlen-1 && src[i]; i++)
         dst[i] = src[i];
     dst[maxlen-1] = 0;
     return strlen(src);
 }
 
 #endif
+
+#ifdef MEM_LEAK_CHECK
+void init_memleak_check() {
+    int flag = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
+    flag |= _CRTDBG_LEAK_CHECK_DF;
+    _CrtSetDbgFlag(flag);
+}
+#endif
+
+void HfDummy(){}

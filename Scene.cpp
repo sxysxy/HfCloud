@@ -35,11 +35,15 @@ void Scene::update(){
     update_event();
     if(main_module)main_module->update();
 }
+bool Scene::running(){
+    return this == SceneManager::scene;
+}
+
 
 void Scene::main_proc(){
     if(!SceneManager::scene)return;
     fiber = &Fiber::fiber();
-    (*fiber)[1] = [&](){
+    (*fiber)[1] = [&]{
         while(true){
             Graphics::clear();              //clear the Graphics in order to redraw
             update();

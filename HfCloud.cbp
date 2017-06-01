@@ -96,6 +96,7 @@
 		<Unit filename="Input.cpp" />
 		<Unit filename="Module.cpp" />
 		<Unit filename="Scene.cpp" />
+		<Unit filename="SceneMVC.cpp" />
 		<Unit filename="SceneManager.cpp" />
 		<Unit filename="SceneStart.cpp" />
 		<Unit filename="Sprite.cpp" />
@@ -113,6 +114,7 @@
 		<Unit filename="include/ReferredObject.h" />
 		<Unit filename="include/STG_Stage1.h" />
 		<Unit filename="include/Scene.h" />
+		<Unit filename="include/SceneMVC.h" />
 		<Unit filename="include/SceneManager.h" />
 		<Unit filename="include/SceneStart.h" />
 		<Unit filename="include/Sprite.h" />

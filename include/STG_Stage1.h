@@ -4,6 +4,7 @@
 using namespace HfCloud;
 
 struct FPS_Counter{  //FPS 记录器，由addcnt函数负责更新，达到建议帧率(ADVISED_FPS)的时候会绘制一次帧率的数据。
+    bool disposed;
     long long last;
     long long now;
     long long feq;
@@ -17,8 +18,9 @@ struct FPS_Counter{  //FPS 记录器，由addcnt函数负责更新，达到建议帧率(ADVISED_FP
         last = SDL_GetPerformanceCounter();
         count = 0;
         font.reload(u8"SIMYOU.TTF", 16);
-        fps_sprite = new Sprite(new Bitmap(1, 1));  //这个1,1的位图是没用的。
+        fps_sprite = new Sprite(new Bitmap(1, 1));      //这个1,1的位图是没用的。
         fps_sprite->setpos(510, 430);               //FPS显示的位置
+        disposed = false;
     }
     void addcnt(){
         if(++count == ADVISED_FPS){   //达到次数
@@ -35,6 +37,15 @@ struct FPS_Counter{  //FPS 记录器，由addcnt函数负责更新，达到建议帧率(ADVISED_FP
             last = SDL_GetPerformanceCounter();  //更新计时器
             count = 0;
         }
+    }
+    void destroy(){
+        if(disposed)return;
+        if(fps_sprite->bitmap) {
+            fps_sprite->bitmap->dispose();
+            delete fps_sprite->bitmap;
+            delete fps_sprite;
+        }
+        disposed = true;
     }
 };
 
@@ -87,6 +98,9 @@ public:
 
         //释放模块
         delete battle_module;
+
+        //fps counter
+        fps.destroy();
 
         disposed = true;
     }
