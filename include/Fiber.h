@@ -6,6 +6,11 @@
 
 #pragma once
 
+#ifdef __MACOSX__
+#define __linux__
+#define _XOPEN_SOURCE
+#endif // __MACOSX__
+
 #ifdef _WIN32
 
 #include <Windows.h>
