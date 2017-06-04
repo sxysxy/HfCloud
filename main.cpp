@@ -35,9 +35,8 @@ extern Fiber fiber;
 int main(int argc, char *argv[]){
 #ifdef MEM_LEAK_CHECK
     init_memleak_check();
+    _CrtSetBreakAlloc(203);
 #endif
-    //_CrtSetBreakAlloc(363);
-
 
     Info info;
     ApplyConfig(info);

@@ -43,6 +43,10 @@ enum class FiberStatus {
 
 class Fiber {
 
+    bool exit;
+
+    struct Fiber_Exit {};
+
 	struct Context {
 
 		Fiber *self;
@@ -67,10 +71,15 @@ class Fiber {
 
 		Context &context = *reinterpret_cast<Context*>(pvParam);
 
-		if (context.functor)
-			context.functor();
+        if (context.functor)
+            try {
 
-		context.self->_dead.insert(context.proc);
+            context.functor();
+
+            context.self->_dead.insert(context.proc);
+
+        }
+        catch (Fiber_Exit) {}
 
 		context.self->yield();
 
@@ -122,23 +131,28 @@ class Fiber {
 
 	}
 
-	static void SwitchToFiber(ProcHandle handle) {
+    void SwitchToFiber(ProcHandle handle) {
 
 #ifdef _WIN32
 
-		::SwitchToFiber(handle);
+        ::SwitchToFiber(handle);
 
 #elif defined(__linux__)
 
-		ProcHandle prevHandle = nowRunning;
+        auto nowRunning = _nowRunning();
 
-		nowRunning = handle;
+        ProcHandle prevHandle = nowRunning;
 
-		::swapcontext(prevHandle, handle);
+        nowRunning = handle;
+
+        ::swapcontext(prevHandle, handle);
 
 #endif
 
-	}
+        if (exit)
+            throw Fiber_Exit();
+
+    }
 
 	static void DeleteFiber(ProcHandle handle) {
 
@@ -202,8 +216,9 @@ public:
 		if (!it->second.proc)
 			CreateFiber(&it->second);
 
+
 		if (_dead.find(it->second.proc) != _dead.end())
-			throw std::runtime_error("Fiber proc is dead.");
+			throw std::runtime_error("Drad Fiber");
 
 		_handleStack.push(_handle);
 
@@ -214,7 +229,6 @@ public:
     	_fibers_mutex.unlock();
 
 		SwitchToFiber(_handle);
-
 	}
 
 	void yield() {
@@ -233,9 +247,6 @@ public:
 
 		if (it == _contexts.end())
 			it = _contexts.insert(std::make_pair(n, Context{ this, nullptr })).first;
-
-		if (it->second.proc)
-			throw std::runtime_error("Fiber proc is running.");
 
 		return it->second.functor;
 
@@ -261,13 +272,22 @@ public:
 
 #endif
 
+        exit = false;
 		resume(n);
+        exit = true;
 
 			for (auto &i : _contexts) {
 
 				ProcHandle &handle = i.second.proc;
 
 				if (handle) {
+                    if (_dead.find(handle) == _dead.end()) {
+                        try {
+                            resume(i.first);
+                        }
+                        catch (Fiber_Exit) {}
+                    }
+
 
 					DeleteFiber(handle);
 
@@ -357,6 +377,7 @@ public:
         HFASSERT(!isRunning(n), "Can not destroy a running fiber")
 
         auto it = _contexts.find(n);
+        if(it == _contexts.end())return;
 
         ProcHandle &handle = it->second.proc;
         auto itd = _dead.find(handle);

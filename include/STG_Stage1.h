@@ -54,6 +54,8 @@ class SceneStage1 : public Scene{   //STAGE1 的场景
     Sprite *sp_back;    //背景图片的精灵
 
     FPS_Counter fps;   //fps记录
+
+    Sprite *sp_players, *sp_bombs;    //显示残机和炸弹数量的精灵
 public:
     std::vector<std::function<void(void)> > tasks;                          //渲染任务队列
 
@@ -124,8 +126,6 @@ public:
 
         battle_module->update(); //更新战斗模块（模块会使得上面的精灵得到绘制）
 
-       // draw_player_bomb();      //绘制残机数和炸弹数
-
         //上面的渲染做完了
         //更新逻辑
         logic_updater();
@@ -144,6 +144,9 @@ struct Player{              //玩家
     SceneStage1 *scene;             //场景...其实可以SceneManager::scene的，但是不想毒瘤对吧...
     int x, y, speed;                //玩家的位置
     double SQRT2;
+    HfRect judge_pt;                //判定点(位置相对角色，非战斗模块)
+
+    int players, bombs;             //残机数量和炸弹数量。
 
     static const int SPEED_FAST = 5;        //高速移动状态下的速度
     static const int SPEED_SLOW = 2;        //低俗移动状态下的速度
@@ -155,6 +158,7 @@ struct Player{              //玩家
         sprite = new Sprite(player_bmp);
         sprite->opacity = 0;
         x = 400/2-32/2, y = 430-48; SQRT2 = sqrt(2);        //初期位置
+        judge_pt = HfRect(32/2-6/2, 48/2-6/2, 6, 6);
         speed = SPEED_FAST;
 
         scene->tasks.push_back([&](){  //请求战斗模块管理角色的精灵。
@@ -180,8 +184,8 @@ struct Player{              //玩家
 
     void update(){
         if(disposed)return;
-          
-        #define calc(x, y) {x*32, y*48}   
+
+        #define calc(x, y) {x*32, y*48}
         //speed
         static int pos[10][2] = {   //人物朝向与在元件表里面位置对应关系
         calc(2, 0),   //0
@@ -200,7 +204,7 @@ struct Player{              //玩家
 
         if(speed == SPEED_SLOW){  //绘制判定点
             player_bmp->fill_rect(32/2-8/2, 48/2-8/2, 8, 8, RGBA(0xff, 0xff, 0xff, 0xff));
-            player_bmp->fill_rect(32/2-6/2, 48/2-6/2, 6, 6, RGBA(0xff, 0, 0, 0xff));
+            player_bmp->fill_rect(judge_pt, RGBA(0xff, 0, 0, 0xff));
         }
         sprite->update();
 
@@ -328,7 +332,7 @@ struct PlayerBomb{  //角色大招
     bool showing;        //显示中的标记
     int show_time_left;  //显示的剩余时间
     std::function<std::pair<int, int>(void)> get_player_pos;  //其实可以...对吧，但是不要毒瘤呢
-    std::map<std::pair<int, int>, std::function<void(void)> >::iterator pshift;  
+    std::map<std::pair<int, int>, std::function<void(void)> >::iterator pshift;
                 //在使用大招过程中，会强制进入低速模式，并且不会显示判定点，这里用了很简单的方法，就是调用shift被按下时候的handler
 
     static const int BOMB_WIDTH = 220;  //攻击范围宽度
@@ -453,7 +457,7 @@ public:
         //注册ESC按钮
         scene->key_handlers[std::make_pair(SDLK_ESCAPE, Input::KEY_IS_TRIGGLED)] = [&,this](){leave(); SceneManager::jumpback();};
 
-        player.init(scene); players = 2; //注册方向键和shift
+        player.init(scene);         //注册方向键和shift
         scene->key_handlers[std::make_pair(SDLK_UP, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyup();};
         scene->key_handlers[std::make_pair(SDLK_DOWN, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keydown();};
         scene->key_handlers[std::make_pair(SDLK_LEFT, Input::KEY_IS_PRESSED)] = [&,this](){player.on_keyleft();};
@@ -466,7 +470,7 @@ public:
         scene->key_handlers[std::make_pair(SDLK_z,Input::KEY_IS_PRESSED)] = [&, this](){pressed_z();};
         scene->key_handlers[std::make_pair(SDLK_z, Input::KEY_IS_UNPRESSED)] = [&, this](){unpressed_z(); };
 
-        pbomb.init(scene); bombs = 3;  //注册bomb按钮
+        pbomb.init(scene);         //注册bomb按钮
         pbomb.get_player_pos = [&](){return std::make_pair(player.x, player.y);};
         scene->key_handlers[std::make_pair(SDLK_x, Input::KEY_IS_TRIGGLED)] = [&, this](){pbomb.show();};
     }

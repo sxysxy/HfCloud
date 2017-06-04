@@ -38,13 +38,11 @@ void Scene::update(){
 bool Scene::running(){
     return this == SceneManager::scene;
 }
-
-
 void Scene::main_proc(){
     if(!SceneManager::scene)return;
     fiber = &Fiber::fiber();
     (*fiber)[1] = [&]{
-        while(true){
+        while(this == SceneManager::scene){
             Graphics::clear();              //clear the Graphics in order to redraw
             update();
             yield_for_wait();
@@ -59,8 +57,9 @@ void Scene::main_proc(){
         fiber->resume(1);
         Graphics::update();
     }
-    end_scene();
+    fiber->resume(1);
     fiber->destroy(1);
+    end_scene();
 #ifdef __LINUX__
     delay_short();
 #endif
